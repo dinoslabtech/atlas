@@ -1,0 +1,33 @@
+# Inductors
+
+Source: `dinoslabtech/dinoslab-kicad-libs` `docs/Inductors.md` and `components/passive/inductors.yaml`.
+
+Tolerance in the Name is prefixed with `±` and glued to the previous token.
+
+| Key | Name | Fields |
+|---|---|---|
+| LL | Signal / general purpose | inductance, tolerance, package, srf, shield |
+| LP | Power inductor | inductance, tolerance, package, isat, irms, dcr, shield |
+| LR | RF inductor | inductance, tolerance, package, srf, q |
+| LC | Common mode choke | inductance, tolerance, package, zcm, irated, dcr, lines |
+| FB | Ferrite bead | zimp, package, irated, dcr |
+
+LP packages (`2520`, `3015`, `4020`, `5020`, `6028`) are power-inductor footprints. They are not drawn as EIA chips. FB has no tolerance field.
+
+Shield: `SH`, `UN`. Lines: `2L`, `4L`. Impedance: `600R@100MHz`.
+
+## Specimens
+
+| Key | ID | Name |
+|---|---|---|
+| LL | `LL-100nH-5%-0402-500MHz-SH` | `LL 100nH±5% 0402 500MHz SH` |
+| LP | `LP-4u7-20%-5020-3A-2A-80mR-SH` | `LP 4u7±20% 5020 3A 2A 80mR SH` |
+| LR | `LR-2n2-2%-0402-2G4-Q50` | `LR 2n2±2% 0402 2G4 Q50` |
+| LC | `LC-4m7-20%-3216-600R@100MHz-500mA-500mR-2L` | `LC 4m7±20% 3216 600R@100MHz 500mA 500mR 2L` |
+| FB | `FB-600R@100MHz-0402-500mA-200mR` | `FB 600R@100MHz 0402 500mA 200mR` |
+
+## Disagreements
+
+- The LL summary table includes Q. The detailed LL ID and the YAML omit Q. Atlas omits Q.
+- The LP field table and YAML include core type. The detailed LP ID and example omit it. Atlas omits core.
+- LC YAML adds `shield` and spells `impedence`. The detailed ID has no shield. Atlas omits shield and uses `zcm` / `zimp`.
