@@ -14,7 +14,13 @@ Tolerance in the Name is prefixed with `±` and glued to the previous token.
 
 LP packages (`2520`, `3015`, `4020`, `5020`, `6028`) are power-inductor footprints. They are not drawn as EIA chips. FB has no tolerance field.
 
-Shield: `SH`, `UN`. Lines: `2L`, `4L`. Impedance: `600R@100MHz`.
+Chip EIA examples include `01005`, `0201`, `0402`, `0603`, `0805`, `1206`, `1210`, `1808`, `1812`. `01005` is not on the chip size drawing. LC also uses metric codes (`2012`, `3216`, `4532`).
+
+Shield: `SH`, `UN`. Lines: `2L`, `4L`. Impedance: `120R@100MHz`, `600R@100MHz`, `1kR@100MHz`. SRF: `50MHz`, `500MHz`, `1G0`, `2G4`, `10GHz`. Current: `50mA`, `500mA`, `1A`, `3A`, `15A`. DCR: `10mR`, `80mR`, `1R2`.
+
+Derived values are not part of the ID. Energy is `0.5*L*I^2` when inductance and a current (`isat`, else `irms`, else `irated`) are set. Copper drop is `I*DCR`. Ferrite beads use `irated` and `dcr`.
+
+Distributor filter names live in [Houses](houses/).
 
 ## Specimens
 

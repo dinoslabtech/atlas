@@ -21,5 +21,5 @@ kicad-libs called the Name string **Value**. Atlas uses Name.
 | Inductors | LL, LP, LR, LC, FB | specified |
 | Diodes | DD, DS, DZ, DL | specified |
 | Transistors | QN, QP, MN, MP | specified |
-| ICs | IC | still being specified |
-| Connectors | JJ | still being specified |
+| ICs | IC | specified |
+| Connectors | JJ | specified |

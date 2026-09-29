@@ -1,28 +1,22 @@
-import { DEFAULT_CLASS_KEY, DEFAULT_FAMILY_ID } from '@/seed/taxonomy'
 import type { Family } from '@/seed/types'
 import { findClassInFamily, findFamily } from './taxonomy'
 
-export type Route = {
-  familyId: string
-  classKey: string
-}
+export type Route =
+  | { screen: 'home' }
+  | { screen: 'family'; familyId: string; classKey: string }
 
 export function parseHash(hash: string, families: Family[]): Route {
-  const path = hash.replace(/^#\/?/, '')
+  const path = hash.replace(/^#\/?/, '').replace(/\/+$/, '')
+  if (!path) return { screen: 'home' }
   const [familyId, classKey] = path.split('/')
-  const family = (familyId && findFamily(families, familyId)) || findFamily(families, DEFAULT_FAMILY_ID)
-  if (!family) {
-    return { familyId: DEFAULT_FAMILY_ID, classKey: DEFAULT_CLASS_KEY }
-  }
+  const family = familyId ? findFamily(families, familyId) : undefined
+  if (!family) return { screen: 'home' }
   const part = (classKey && findClassInFamily(family, classKey)) || family.classes[0]
-  return {
-    familyId: family.id,
-    classKey: part?.key ?? DEFAULT_CLASS_KEY,
-  }
+  return { screen: 'family', familyId: family.id, classKey: part?.key ?? '' }
 }
 
 export function writeHash(route: Route): void {
-  const next = `#/${route.familyId}/${route.classKey}`
+  const next = route.screen === 'home' ? '#/' : `#/${route.familyId}/${route.classKey}`
   if (window.location.hash !== next) {
     window.history.replaceState(null, '', next)
   }
