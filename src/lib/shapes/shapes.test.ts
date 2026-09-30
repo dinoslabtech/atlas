@@ -86,4 +86,14 @@ describe('shapesForClass', () => {
       expect(boundingHeight(shape)).toBeGreaterThan(0)
     }
   })
+
+  test('family previews use distinct silhouettes', () => {
+    expect(familyPreviewKind('resistors').type).toBe('chip')
+    expect(familyPreviewKind('capacitors').type).toBe('can')
+    expect(familyPreviewKind('inductors').type).toBe('power')
+    expect(familyPreviewKind('diodes').type).toBe('led-tht')
+    expect(familyPreviewKind('transistors').type).toBe('to92')
+    expect(familyPreviewKind('ics').type).toBe('soic')
+    expect(familyPreviewKind('connectors').type).toBe('usbc')
+  })
 })

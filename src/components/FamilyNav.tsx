@@ -1,7 +1,10 @@
+import type { CSSProperties } from 'react'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { familyIsSpecified } from '@/lib/taxonomy'
 import type { Family } from '@/seed/types'
+import { familyTheme } from '@/theme/families'
 
 type FamilyNavProps = {
   families: Family[]
@@ -22,10 +25,16 @@ export function FamilyNav({ families, familyId, classKey, onSelect }: FamilyNavP
           ) : null}
           {group.families.map((family) => {
             const specified = familyIsSpecified(family)
+            const theme = familyTheme(family.id)
             return (
               <div key={family.id} className="flex flex-col gap-1">
                 <div className="flex items-center gap-2 px-1">
-                  <span className="text-sm font-medium">{family.name}</span>
+                  <span
+                    className="text-sm font-medium"
+                    style={{ color: `color-mix(in hsl, ${theme.accent} 50%, var(--foreground))` }}
+                  >
+                    {family.name}
+                  </span>
                   {specified ? null : (
                     <Badge variant="secondary">Still being specified</Badge>
                   )}
@@ -44,6 +53,15 @@ export function FamilyNav({ families, familyId, classKey, onSelect }: FamilyNavP
                           variant={current ? 'default' : 'outline'}
                           aria-current={current ? 'page' : undefined}
                           onClick={() => onSelect(family.id, item.key)}
+                          style={
+                            current
+                              ? ({
+                                  background: theme.accent,
+                                  color: theme.onAccent,
+                                  borderColor: theme.accent,
+                                } as CSSProperties)
+                              : undefined
+                          }
                         >
                           {item.key}
                         </Button>

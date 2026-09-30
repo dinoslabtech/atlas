@@ -41,7 +41,7 @@ export function PackageView3D({ part, familyId, values, selected, onSelect }: Pa
   const chipOnly = isChipLineup(shapes)
   const dist = lineupCameraDistance(laidOut.span, tallest, shapes)
   const camPos: [number, number, number] = chipOnly
-    ? [dist * 0.18, dist * 0.82, dist * 0.52]
+    ? [dist * 0.04, dist * 0.72, dist * 0.5]
     : [dist * 0.35, dist * 0.55, dist]
 
   return (
@@ -55,7 +55,7 @@ export function PackageView3D({ part, familyId, values, selected, onSelect }: Pa
         </div>
       </div>
       <div className="h-[22rem] w-full sm:h-[26rem]">
-        <Canvas shadows dpr={[1, 2]} gl={{ antialias: true }}>
+        <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, preserveDrawingBuffer: true, alpha: false }}>
           <PerspectiveCamera makeDefault position={camPos} fov={30} up={[0, 1, 0]} near={0.1} far={500} />
           <color attach="background" args={[theme.sceneBg]} />
           <ambientLight intensity={0.75} />

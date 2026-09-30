@@ -1,4 +1,8 @@
-/** Dino's Lab brand tokens from dinoslab.com, Sajid 4-color layout. */
+/**
+ * Dino's Lab hue 171 from dinoslab.com (#0f5f53), laid out Sajid-style:
+ * background, text, accent, tertiary. Lightness ladder, top highlight,
+ * inset + short + long shadow, ease cubic-bezier(0.3, 0.8, 0.2, 1.3).
+ */
 
 export const PALETTE = {
   lab: 'hsl(171 55% 62%)',

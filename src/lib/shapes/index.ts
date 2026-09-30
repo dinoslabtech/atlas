@@ -58,21 +58,21 @@ export function shapesForClass(part: PartClass, options?: ShapeOptions): Package
 export function familyPreviewKind(familyId: string): PackageShape {
   switch (familyId) {
     case 'resistors':
-      return chipShape(CHIP_SIZES.find((chip) => chip.eia === '0603')!, 'resistor')
+      return chipShape(CHIP_SIZES.find((chip) => chip.eia === '1206')!, 'resistor')
     case 'capacitors':
-      return chipShape(CHIP_SIZES.find((chip) => chip.eia === '0603')!, 'ceramic')
+      return capacitorFromToken('THT8x16', 'CE')!
     case 'inductors':
-      return chipShape(CHIP_SIZES.find((chip) => chip.eia === '0805')!, 'inductor')
+      return inductorFromToken('4020', 'LP')!
     case 'diodes':
-      return diodeFromToken('SOD123')!
+      return diodeFromToken('PTH-3mm')!
     case 'transistors':
-      return transistorFromToken('SOT23')!
+      return transistorFromToken('PTH-TO92')!
     case 'ics':
       return icFromToken('SOIC8')!
     case 'connectors':
-      return headerFromToken('1x4')!
+      return connectorFromType('USBC')!
     default:
-      return chipShape(CHIP_SIZES.find((chip) => chip.eia === '0603')!, 'resistor')
+      return chipShape(CHIP_SIZES.find((chip) => chip.eia === '1206')!, 'resistor')
   }
 }
 
@@ -160,7 +160,7 @@ export function isChipLineup(shapes: PackageShape[]): boolean {
 
 export function lineupCameraDistance(span: number, tallest: number, shapes: PackageShape[]): number {
   if (isChipLineup(shapes)) {
-    return Math.max(span * 0.58, 2.8)
+    return Math.max(span * 0.88, 3.6)
   }
   return Math.max(span * 1.15, tallest * 3.2, 8)
 }
@@ -168,7 +168,10 @@ export function lineupCameraDistance(span: number, tallest: number, shapes: Pack
 export function previewCameraDistance(shape: PackageShape): number {
   const width = boundingWidth(shape)
   const height = boundingHeight(shape)
-  return Math.max(width * 1.05, height * 1.85, 2.8)
+  const vertical = Math.max(height, width * 0.5)
+  const fov = (30 * Math.PI) / 180
+  const fill = 0.36
+  return Math.max(vertical / (2 * Math.tan(fov / 2) * fill), 5)
 }
 
 export function shapeFromToken(token: string, classKey: string): PackageShape | undefined {

@@ -35,9 +35,14 @@ export function HomePage({ families }: HomePageProps) {
             >
               <Card
                 className="family-card panel h-full gap-0 py-0 ring-0"
-                style={{ '--family-accent': theme.accent } as CSSProperties}
+                style={
+                  {
+                    '--family-accent': theme.accent,
+                    '--family-on-accent': theme.onAccent,
+                  } as CSSProperties
+                }
               >
-                <div className="h-1 w-full" style={{ background: theme.accent }} />
+                <div className="h-[3px] w-full" style={{ background: theme.accent }} />
                 <FamilyPreview3D familyId={family.id} />
                 <CardHeader className="py-4">
                   <div className="flex items-center gap-2">

@@ -18,17 +18,17 @@ export function FamilyPreview3D({ familyId, interactive = false }: FamilyPreview
   const size = Math.max(width, height, 2)
   const dist = previewCameraDistance(shape)
   return (
-    <div className={interactive ? 'h-64 w-full' : 'h-36 w-full pointer-events-none sm:h-40'}>
+    <div className={interactive ? 'h-72 w-full' : 'h-44 w-full pointer-events-none sm:h-52'}>
       <Canvas
         camera={{
-          position: [dist * 0.65, Math.max(dist * 0.55, height * 1.15), dist],
-          fov: 32,
+          position: [dist * 0.72, dist * 0.55, dist * 0.9],
+          fov: 30,
           up: [0, 1, 0],
           near: 0.05,
-          far: 200,
+          far: 400,
         }}
         dpr={[1, 2]}
-        gl={{ antialias: true }}
+        gl={{ antialias: true, preserveDrawingBuffer: true, alpha: false }}
       >
         <color attach="background" args={[theme.sceneBg]} />
         <ambientLight intensity={0.85} />
@@ -44,8 +44,10 @@ export function FamilyPreview3D({ familyId, interactive = false }: FamilyPreview
           enableZoom={false}
           enablePan={false}
           autoRotate
-          autoRotateSpeed={1.4}
-          target={[0, height * 0.4, 0]}
+          autoRotateSpeed={0.9}
+          minPolarAngle={0.55}
+          maxPolarAngle={Math.PI / 2 - 0.18}
+          target={[0, height * 0.42, 0]}
         />
       </Canvas>
     </div>

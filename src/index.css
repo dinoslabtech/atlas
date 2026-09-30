@@ -142,6 +142,14 @@
 
 .family-card {
   --family-accent: var(--lab);
+  --family-on-accent: var(--lab-ink);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in hsl, var(--family-accent) 16%, var(--card)) 0%,
+      var(--card) 46%
+    );
+  border-top-color: color-mix(in hsl, var(--family-accent) 55%, var(--highlight));
   transition:
     border-color 150ms var(--ease-lab),
     box-shadow 150ms var(--ease-lab),
@@ -149,7 +157,21 @@
 }
 
 .family-card:hover {
-  border-color: var(--highlight);
+  border-color: color-mix(in hsl, var(--family-accent) 40%, var(--highlight));
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
+}
+
+.family-card [data-slot='card-title'] {
+  color: color-mix(in hsl, var(--family-accent) 55%, var(--foreground));
+}
+
+.identity-cell {
+  border-top-width: 2px;
+  border-top-color: var(--family-accent);
+}
+
+.family-page {
+  --family-accent: var(--lab);
+  --family-on-accent: var(--primary-foreground);
 }

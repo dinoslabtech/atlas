@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
 import { DerivedPanel } from '@/components/DerivedPanel'
 import { FamilyNav } from '@/components/FamilyNav'
@@ -17,6 +17,7 @@ import { cloneTaxonomy, familyIsSpecified, findClassInFamily, findFamily, values
 import { seedFamilies, seedValues } from '@/seed/taxonomy'
 import type { ExampleValues, Family } from '@/seed/types'
 import { clearSnapshot, loadSnapshot, saveSnapshot } from '@/storage/localTaxonomy'
+import { familyTheme } from '@/theme/families'
 
 function selectedPackageId(
   key: string,
@@ -154,8 +155,18 @@ export default function App() {
     return <HomePage families={families} />
   }
 
+  const theme = familyTheme(familyId)
+
   return (
-    <div className="mx-auto flex min-h-svh w-full max-w-6xl flex-col gap-6 p-4 sm:p-6">
+    <div
+      className="family-page mx-auto flex min-h-svh w-full max-w-6xl flex-col gap-6 p-4 sm:p-6"
+      style={
+        {
+          '--family-accent': theme.accent,
+          '--family-on-accent': theme.onAccent,
+        } as CSSProperties
+      }
+    >
       <header className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-1">

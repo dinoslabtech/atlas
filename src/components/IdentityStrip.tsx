@@ -12,7 +12,7 @@ type IdentityStripProps = {
 function Cell({ label, value, accent }: { label: string; value: string; accent: string }) {
   return (
     <div
-      className="panel min-w-0 flex-1 px-4 py-3"
+      className="identity-cell panel min-w-0 flex-1 px-4 py-3"
       style={{ '--family-accent': accent } as CSSProperties}
     >
       <div className="text-xs font-medium tracking-wide text-muted-foreground uppercase">{label}</div>
@@ -22,12 +22,12 @@ function Cell({ label, value, accent }: { label: string; value: string; accent: 
 }
 
 export function IdentityStrip({ keyCode, id, name, familyId }: IdentityStripProps) {
-  const accent = familyTheme(familyId ?? 'resistors').accent
+  const theme = familyTheme(familyId ?? 'resistors')
   return (
     <section aria-label="Part identity" className="grid gap-3 sm:grid-cols-3">
-      <Cell label="Key" value={keyCode} accent={accent} />
-      <Cell label="ID" value={id} accent={accent} />
-      <Cell label="Name" value={name} accent={accent} />
+      <Cell label="Key" value={keyCode} accent={theme.accent} />
+      <Cell label="ID" value={id} accent={theme.accent} />
+      <Cell label="Name" value={name} accent={theme.accent} />
     </section>
   )
 }
