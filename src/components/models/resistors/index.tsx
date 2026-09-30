@@ -10,35 +10,54 @@ export function ArrayBody({
   emissive: string
   emissiveIntensity: number
 }) {
-  const cap = Math.min(shape.length * 0.08, 0.22)
-  const slot = shape.length / shape.count
+  const { length: l, width: w, thickness: t, count } = shape
+  const slot = l / count
+  const gap = Math.min(0.05, slot * 0.1)
+  const seg = slot - gap
+  const termD = Math.min(0.22, Math.max(0.08, w * 0.14))
+  const termW = Math.min(slot * 0.7, seg * 0.78)
+  const bulge = Math.min(0.045, w * 0.05)
+  const coatH = Math.max(0.02, t * 0.08)
+  const body = {
+    color: CHIP_BODY.resistor,
+    roughness: 0.5,
+    metalness: 0.04,
+    emissive,
+    emissiveIntensity,
+  }
   return (
     <group>
-      <mesh position={[0, shape.thickness / 2, 0]} castShadow>
-        <boxGeometry args={[shape.length, shape.thickness, shape.width]} />
-        <meshStandardMaterial
-          color={CHIP_BODY.resistor}
-          roughness={0.5}
-          metalness={0.05}
-          emissive={emissive}
-          emissiveIntensity={emissiveIntensity}
-        />
+      <mesh position={[0, t * 0.4, 0]} castShadow>
+        <boxGeometry args={[l, t * 0.8, w * 0.86]} />
+        <meshStandardMaterial {...body} />
       </mesh>
-      {Array.from({ length: shape.count - 1 }, (_, i) => {
-        const x = -shape.length / 2 + slot * (i + 1)
+      {Array.from({ length: count }, (_, i) => {
+        const x = -l / 2 + slot * (i + 0.5)
         return (
-          <mesh key={i} position={[x, shape.thickness * 0.7, 0]}>
-            <boxGeometry args={[0.04, shape.thickness * 0.5, shape.width * 0.9]} />
-            <meshStandardMaterial color="#5c4a32" roughness={0.6} />
-          </mesh>
+          <group key={i}>
+            <mesh position={[x, t / 2, 0]} castShadow>
+              <boxGeometry args={[seg, t, w * 0.78]} />
+              <meshStandardMaterial {...body} roughness={0.48} />
+            </mesh>
+            <mesh position={[x, t + coatH / 2, 0]}>
+              <boxGeometry args={[seg * 0.62, coatH, w * 0.42]} />
+              <meshStandardMaterial color="#5c4c36" roughness={0.5} metalness={0.02} />
+            </mesh>
+            {([-1, 1] as const).map((side) => (
+              <group key={side}>
+                <mesh position={[x, t * 0.52, side * (w / 2 - termD / 2 + bulge)]} castShadow>
+                  <boxGeometry args={[termW, t * 1.04, termD]} />
+                  <meshStandardMaterial color={METAL} metalness={0.82} roughness={0.22} />
+                </mesh>
+                <mesh position={[x, 0.02, side * (w / 2 - termD * 0.35)]}>
+                  <boxGeometry args={[termW, 0.04, termD * 1.15]} />
+                  <meshStandardMaterial color={METAL} metalness={0.82} roughness={0.22} />
+                </mesh>
+              </group>
+            ))}
+          </group>
         )
       })}
-      {[-1, 1].map((side) => (
-        <mesh key={side} position={[(shape.length / 2 - cap / 2) * side, shape.thickness / 2, 0]}>
-          <boxGeometry args={[cap, shape.thickness * 1.02, shape.width]} />
-          <meshStandardMaterial color={METAL} metalness={0.7} roughness={0.3} />
-        </mesh>
-      ))}
     </group>
   )
 }
