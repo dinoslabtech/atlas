@@ -38,7 +38,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Temperature Coefficient | `dielectric` | C0G, X7R, X5R, X7S, Y5V. This is **not** resistor TCR. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF. |
+| Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case / Size | `case` | Tantalum A–E (CT). |

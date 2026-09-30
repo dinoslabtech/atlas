@@ -65,14 +65,32 @@ describe('capacitors seed', () => {
     ])
     expect(formatId('CT', valuesInOrder('CT'))).toBe('CT-10uF-10%-B-16V-300mR-MNO2-125C')
     expect(formatId('CF', valuesInOrder('CF'))).toBe('CF-100nF-5%-THT5mm-250V-PP-85C')
-    expect(formatId('CS', valuesInOrder('CS'))).toBe('CS-1F-20%-THT10x30-2V5-100mR')
+    expect(formatId('CS', valuesInOrder('CS')).startsWith('CS-1F-20%-THT10x30-2V5-100mR')).toBe(true)
+  })
+
+  test('CS keeps the five-field prefix and completes with 70C', () => {
+    const id = formatId('CS', valuesInOrder('CS'))
+    expect(id.startsWith('CS-1F-20%-THT10x30-2V5-100mR')).toBe(true)
+    expect(id).toBe('CS-1F-20%-THT10x30-2V5-100mR-70C')
+    expect(formatName('CS', classByKey('CS').fields, valuesInOrder('CS'))).toBe(
+      'CS 1F 20% THT10x30 2V5 100mR 70C',
+    )
     expect(classByKey('CS').fields.map((field) => field.id)).toEqual([
       'capacitance',
       'tolerance',
       'package',
       'voltage',
       'esr',
+      'temp',
     ])
+    expect(classByKey('CS').fields.at(-1)).toMatchObject({ id: 'temp', label: 'Temperature' })
+  })
+
+  test('unset CS temperature copies as X', () => {
+    const values = valuesInOrder('CS')
+    expect(classByKey('CS').fields.at(-1)?.id).toBe('temp')
+    values[values.length - 1] = ''
+    expect(formatId('CS', values)).toBe('CS-1F-20%-THT10x30-2V5-100mR-X')
   })
 
   test('example tokens expand without reordering the old list', () => {
@@ -87,5 +105,6 @@ describe('capacitors seed', () => {
     expect(examples('CS', 'voltage')).toEqual(expect.arrayContaining(['2V7', '3V']))
     expect(examples('CS', 'package').slice(0, 2)).toEqual(['1210', 'THT10x30'])
     expect(examples('CS', 'esr').slice(0, 3)).toEqual(['10mR', '100mR', '1R'])
+    expect(examples('CS', 'temp')).toEqual(['70C', '85C'])
   })
 })
