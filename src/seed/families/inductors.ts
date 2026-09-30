@@ -13,6 +13,7 @@ export const inductorsFamily: Family = {
       field('package', 'Package', ['01005', '0201', '0402', '0603', '0805', '1206', '1210', '1808', '1812'], chip),
       field('srf', 'SRF', ['50MHz', '100MHz', '200MHz', '500MHz', '1G0', '1G5']),
       field('shield', 'Shield', ['SH', 'UN']),
+      field('irated', 'Rated current', ['350mA', '500mA']),
     ]),
     partClass('LP', 'Power inductor SMD', [
       field('inductance', 'Inductance', ['1uH', '4u7', '10uH', '100uH']),
@@ -49,7 +50,14 @@ export const inductorsFamily: Family = {
 }
 
 export const inductorsValues: ExampleValues = {
-  LL: { inductance: '100nH', tolerance: '5%', package: '0402', srf: '500MHz', shield: 'SH' },
+  LL: {
+    inductance: '100nH',
+    tolerance: '5%',
+    package: '0402',
+    srf: '500MHz',
+    shield: 'SH',
+    irated: '500mA',
+  },
   LP: {
     inductance: '4u7',
     tolerance: '20%',

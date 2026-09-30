@@ -58,7 +58,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Tolerance | `tolerance` | Name glues `±`. |
 | Case Code - in / Package / Case | `package` | EIA for LL/LR/FB. LP uses power footprints (`2520`, `5020`). |
 | Shielding | `shield` | Shielded / Unshielded → `SH` / `UN`. |
-| Maximum DC Current / Current Rating | `irms` or `irated` | One current on many rows. LP `irms`; LC/FB `irated`. |
+| Maximum DC Current / Current Rating | `irms` or `irated` | One current on many rows. LP `irms`; LL/LC/FB `irated`. |
 | Saturation Current | `isat` | LP. Often absent. |
 | DCR / Maximum DC Resistance | `dcr` | |
 | Self Resonant Frequency / SRF | `srf` | |

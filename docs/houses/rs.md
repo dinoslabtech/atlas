@@ -60,7 +60,7 @@ Electrolytic, tantalum, film, and supercapacitor sit in sibling capacitor catego
 | Package/Case | `package` | EIA for LL/LR/FB. LP uses power footprints. |
 | Maximum Self Resonant Frequency | `srf` | |
 | Shielded / Inductor Construction | `shield` | Shielded → `SH`. Unshielded / No → `UN`. |
-| Maximum DC Current | `irms` or `irated` | One current on many rows. |
+| Maximum DC Current | `irms` or `irated` | One current on many rows. LP `irms`; LL/LC/FB `irated`. |
 | Saturation Current | `isat` | LP. Often absent. |
 | Maximum DC Resistance | `dcr` | |
 | Q Factor | `q` | LR. |

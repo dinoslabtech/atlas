@@ -64,7 +64,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Package / Case | `package` | EIA for LL/LR/FB. Power footprints (`5020`) are not drawn as EIA chips. |
 | Frequency - Self Resonant | `srf` | DigiKey `500 MHz`. Atlas `500MHz` / `2G4`. |
 | Shielding | `shield` | Shielded / Unshielded → `SH` / `UN`. Semi-Shielded is not an Atlas token. |
-| Current Rating (Amps) | `irms` or `irated` | One column. LP uses it as `irms`; LC/FB as `irated`. |
+| Current Rating (Amps) | `irms` or `irated` | One column. LP uses it as `irms`; LL/LC/FB as `irated`. |
 | Current - Saturation (Isat) | `isat` | LP. Often missing on signal/RF rows. |
 | DC Resistance (DCR) | `dcr` | Atlas `80mR`. |
 | Q @ Freq | `q` | LR only. Atlas `Q50`. LL does not carry Q. |
