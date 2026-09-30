@@ -29,7 +29,9 @@ export function connectorFromType(token: string): PackageShape | undefined {
     return { id: token, label: token, metric: '2-pole', type: 'tb', poles: 2 }
   }
   if (token === 'HDR') {
-    return headerFromToken('1x4')
+    const header = headerFromToken('1x4')
+    if (!header) return undefined
+    return { ...header, id: token, label: token }
   }
   return undefined
 }

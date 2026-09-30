@@ -61,10 +61,10 @@ const THEMES: Record<string, FamilyTheme> = {
   connectors: {
     id: 'connectors',
     accent: 'hsl(42 62% 56%)',
-    sceneBg: '#15120e',
-    sceneGround: '#1c1812',
-    grid: '#3d3420',
-    gridFine: '#2c2618',
+    sceneBg: '#12100b',
+    sceneGround: '#261e14',
+    grid: '#4a3c24',
+    gridFine: '#322818',
   },
 }
 
