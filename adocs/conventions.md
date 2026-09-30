@@ -12,7 +12,7 @@ Changing a class means updating the matching file in `docs/` and the seed in the
 
 ## Homepage and 3D
 
-`#/` is the type picker. `#/<family>/<class>` is the family page. Three.js (R3F) draws packages in millimetres, y-up, sitting on y = 0. Chip classes use `src/seed/packages.ts`. Cans, tantalum cases, power inductors, SOD/SMA/SOT/TO, LEDs, SOIC, and headers have their own meshes. They are not drawn as EIA chip rectangles.
+`#/` is the type picker. `#/<family>/<class>` is the family page. `?edit=1` shows derived values and the taxonomy editor; omit it on the public site. Hash writes must keep the query string. Three.js (R3F) draws packages in millimetres, y-up, sitting on y = 0. Chip classes use `src/seed/packages.ts`. Cans, tantalum cases, power inductors, SOD/SMA/SOT/TO, LEDs, SOIC, and headers have their own meshes. They are not drawn as EIA chip rectangles.
 
 ## Unspecified families
 

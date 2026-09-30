@@ -4,7 +4,7 @@ A component type has three identities.
 
 **Key** is the class code: `RR`, `RX`, `CC`, `LL`, `DD`, `QN`, …
 
-**ID** is the Key, then each field in order, separated by `-`. Every field keeps its position. A missing or empty field is `X`.
+**ID** is the Key, then each field in order, separated by `-`. Every field keeps its position. A missing or empty field is `X`. Atlas copies this string (Copy ID).
 
 **Name** is the same sequence with spaces instead of dashes. For inductor classes, a tolerance field is prefixed with `±` and glued to the previous token: `LL 100nH±5% 0402 500MHz SH`.
 

@@ -12,18 +12,18 @@ Catalog filters live under [uk.rs-online.com](https://uk.rs-online.com). Column 
 |---|---|---|
 | Resistance | `resistance` | RS `10 kΩ`. Atlas `10k`. |
 | Tolerance | `tolerance` | RS `1 %`. Atlas `1%`. |
-| Power Rating | `power` | RS `0.063 W`. Atlas `63mW`. RR does not carry power. |
+| Power Rating | `power` | RS `0.063 W`. Atlas `63mW`. On RR, RX, RW, RS, RN. |
 | Package/Case | `package` | EIA `0402`, `0603`, `0805`. |
 | Technology | `tech` | Thick Film / Thin Film → RX `TK` / `TN`. Wirewound is class RW. |
 | Temperature Coefficient | `tcr` | RS `±100 ppm/°C`. Atlas `100ppm`. |
-| Voltage | `voltage` | Shop working voltage. Not on RR/RX ID. |
+| Voltage | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
 | Minimum / Maximum Operating Temperature | — | Not an Atlas resistor field. |
 | Automotive Standard | — | AEC-Q200. Shop rating. |
 | Resistor Type | — | General Purpose, Current Sense. Current Sense selects class RS. |
 | Termination | `term` | 2-terminal / 4-terminal → RS `2T` / `4T`. |
 | Number of Resistors / Circuit | `count` / `config` | RN. Isolated / Bussed → `ISO` / `BUS`. |
 
-RR is three fields. RS always shows Power Rating, Technology, and Temperature Coefficient; those extras belong on RX.
+RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TCR and tech stay on RX.
 
 ## Capacitors
 
@@ -38,7 +38,7 @@ RR is three fields. RS always shows Power Rating, Technology, and Temperature Co
 | Case Size / Package/Case | `package` | EIA `0402`, `0603`, `0805`, `1206`. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS, not typical on MLCC. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | CE token `105C`. |
+| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF. |
 | Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case Code | `case` | Tantalum A–E (CT). |
 | Dielectric Material | `film` | PP, PET, PPS on CF. |
@@ -77,11 +77,11 @@ A single Maximum DC Current does not fill both LP `isat` and `irms`.
 |---|---|---|
 | Maximum Continuous Forward Current | `current` | DD/DS. |
 | Peak Reverse Repetitive Voltage / VR | `voltage` | DD/DS. RS reuses **VR** here. |
-| Forward Voltage / VF | `vf` | Shop column. Not on current DD/DS ID. |
+| Forward Voltage / VF | `vf` | Atlas `0V7`, `0V3`, `2V0`. On DD, DS, DL. |
 | Package Type / Package/Case | `package` | SOD-123, SMA, SOD-323. |
 | Zener Voltage | `voltage` | DZ. |
 | Power Dissipation | `power` | DZ. |
-| Voltage Tolerance | `ztol` | Not on current DZ ID. |
+| Voltage Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | LED Colour | `color` | DL. |
 | Automotive Standard | — | AEC-Q101. Shop rating. |
 
@@ -98,35 +98,35 @@ MOSFET and bipolar categories under Discrete Semiconductors.
 | Drain Source Voltage | `voltage` | MN/MP. |
 | Collector Emitter Voltage | `voltage` | QN/QP. |
 | Package Type | `package` | SOT-23, TO-92. |
-| Drain Source On-State Resistance | `rds` | Not on current MN/MP ID. |
-| Gate Source Threshold Voltage | `vgs` | Not on current MN/MP ID. |
-| DC Current Gain | `hfe` | Not on current QN/QP ID. |
+| Drain Source On-State Resistance | `rds` | Atlas `20mR`. On MN, MP. |
+| Gate Source Threshold Voltage | `vgs` | Atlas `2V5`. On MN, MP. |
+| DC Current Gain | `hfe` | Atlas `100`. On QN, QP. |
 | Channel Type / Transistor Type | — | The Key, not a field. |
 | Automotive Standard | — | AEC-Q101. Shop rating. |
 
 ## ICs
 
-Still being specified. Key `IC` has zero fields. RS splits ICs by function under Semiconductors.
+Key `IC` Fields are `device`, `package`, `pins`. Specimen `IC-LM358-SOIC8-8`. RS splits ICs by function under Semiconductors.
 
 | RS column | Atlas field | Notes |
 |---|---|---|
-| Manufacturer Part No / Description | `device` | Candidate. |
-| Package Type | `package` | Candidate. |
-| Pin Count | `pins` | Candidate. |
-| IC Type | `type` | Candidate. |
+| Manufacturer Part No / Description | `device` | Chip name, e.g. `LM358`. |
+| Package Type | `package` | `SOIC-8` → Atlas `SOIC8`. |
+| Pin Count | `pins` | Atlas `8`, `14`, `32`. |
+| IC Type | — | Shop taxonomy. Atlas has one Class. |
 | Automotive Standard | — | AEC-Q100. Shop rating. |
 
 ## Connectors
 
-Pin headers and rectangular connectors under Connectors. Key `JJ` has zero fields.
+Pin headers and rectangular connectors under Connectors. Key `JJ` Fields are `type`, `pins`, `pitch`, `orientation`, `mount`. Specimen `JJ-HDR-1x10-2.54mm-VERT-PTH`.
 
 | RS column | Atlas field | Notes |
 |---|---|---|
-| Connector Type / Type | `type` | Candidate. |
-| Number of Contacts | `pins` | Candidate. |
-| Pitch | `pitch` | Candidate. `2.54 mm`. |
-| Mounting Type | `mount` | Candidate. |
-| Termination Method | `term` | Candidate. |
-| Body Orientation | `orientation` | Straight / Right Angle. Candidate. |
+| Connector Type / Type | `type` | Atlas `HDR`, `USBC`, `RJ45`, `TB`. |
+| Number of Contacts | `pins` | Atlas `1x10`, `1x8`, `2x5`, `2PIN`. |
+| Pitch | `pitch` | Atlas `2.54mm`. |
+| Mounting Type | `mount` | `PTH` / `SMD`. |
+| Termination Method | — | Not an Atlas Field. |
+| Body Orientation | `orientation` | Straight / Right Angle → `VERT` / `RA`. |
 
 Shop packaging, stock, and MPN stay out of Atlas.

@@ -15,9 +15,16 @@ export function parseHash(hash: string, families: Family[]): Route {
   return { screen: 'family', familyId: family.id, classKey: part?.key ?? '' }
 }
 
+export function hashHref(route: Route): string {
+  return route.screen === 'home' ? '#/' : `#/${route.familyId}/${route.classKey}`
+}
+
+export function locationWithHash(pathname: string, search: string, route: Route): string {
+  return `${pathname}${search}${hashHref(route)}`
+}
+
 export function writeHash(route: Route): void {
-  const next = route.screen === 'home' ? '#/' : `#/${route.familyId}/${route.classKey}`
-  if (window.location.hash !== next) {
-    window.history.replaceState(null, '', next)
-  }
+  const hash = hashHref(route)
+  if (window.location.hash === hash) return
+  window.history.replaceState(null, '', locationWithHash(window.location.pathname, window.location.search, route))
 }

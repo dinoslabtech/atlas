@@ -11,7 +11,7 @@ type DerivedPanelProps = {
 export function DerivedPanel({ rows, ambientC, onAmbientC }: DerivedPanelProps) {
   if (rows.length === 0) return null
   return (
-    <section aria-label="Derived values" className="rounded-xl bg-card px-4 py-4 ring-1 ring-foreground/10">
+    <section aria-label="Derived values" className="panel px-4 py-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-sm font-medium">Derived from the selection</h2>

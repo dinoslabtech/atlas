@@ -12,23 +12,23 @@ AEC-Q200 (and AEC-Q101) sit in **Ratings** / **Qualification**. That is a shop r
 |---|---|---|
 | Resistance | `resistance` | DigiKey uses Ω / kOhms. Atlas uses `10k`, `4R7`, `10mR`. |
 | Tolerance | `tolerance` | DigiKey `±1%`. Atlas `1%`. |
-| Power (Watts) | `power` | DigiKey `0.063W, 1/16W`. Atlas `63mW`. RR does not carry power. |
+| Power (Watts) | `power` | DigiKey `0.063W, 1/16W`. Atlas `63mW`. On RR, RX, RW, RS, RN. |
 | Package / Case | `package` | `0402 (1005 Metric)` → Atlas `0402`. Drop the metric parenthetical. |
 | Supplier Device Package | `package` | Often the EIA code (`0402`). Prefer this when Package / Case is a JEDEC outline. |
-| Temperature Coefficient | `tcr` | DigiKey `±100ppm/°C`. Atlas `100ppm`. RX/RW/RS only. |
+| Temperature Coefficient | `tcr` | DigiKey `±100ppm/°C`. Atlas `100ppm`. RX, RW, RS, RN. |
 | Composition | `tech` | See disagreement below. |
 | Number of Terminations | `term` | `2` / `4` → Atlas `2T` / `4T` (RS). |
 | Features: Non-Inductive | `winding` | Atlas `NI` vs `STD` (RW). DigiKey has no winding column. |
 | Circuit Type | `config` | Isolated / Bussed → Atlas `ISO` / `BUS` (RN). |
 | Number of Resistors | `count` | RN element count. |
-| Voltage - Rated | `voltage` | Shop working voltage. Not on RR/RX ID. |
+| Voltage - Rated | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
 | Operating Temperature | — | Not an Atlas resistor field. |
 | Features: Automotive AEC-Q200 | — | Shop rating. |
 | Ratings | — | Shop rating. |
 
 **Disagreement — Composition vs `tech`.** DigiKey Composition is Thick Film, Thin Film, Wirewound, Metal Foil, Metal Film, Metal Element, Carbon Film, Carbon Composition. Atlas `tech` is only `TK` (thick film) and `TN` (thin film), and only on RX. Wirewound is class `RW` (`winding`), not a tech token. Foil, metal element, and carbon have no Atlas token. Do not copy Composition strings into an ID.
 
-RR is three fields (`resistance`, `tolerance`, `package`). DigiKey always shows power, composition, and TCR; those belong on RX, not RR.
+RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TCR and tech stay on RX.
 
 ## Capacitors
 
@@ -43,8 +43,8 @@ RR is three fields (`resistance`, `tolerance`, `package`). DigiKey always shows 
 | Temperature Coefficient | `dielectric` | C0G, X7R, X5R, X7S, Y5V on MLCC. This is **not** resistor TCR. |
 | ESR (Equivalent Series Resistance) | `esr` | CE/CT/CS. Atlas `100mR`. |
 | Ripple Current | `ripple` | CE. Atlas `500mA`. |
-| Operating Temperature | `temp` | CE lifetime grade is `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. |
-| Lifetime @ Temp | `temp` | Secondary source for the CE temperature token. |
+| Operating Temperature | `temp` | Grade token `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. On CC, CE, CT, CF. |
+| Lifetime @ Temp | `lifetime` | CE hours token (`2000h`, `5000h`). Separate from `temp`. |
 | Polarization / Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid → CE `AL` / `ALP` / `ALH`. MnO2 / Polymer → CT `MNO2` / `POLY`. |
 | Size / Dimension, Height | `case` | Tantalum case letters A–E are Atlas `case` (CT), not `package`. |
 | Dielectric Material | `film` | Polypropylene / Polyester / PPS → CF `PP` / `PET` / `PPS`. |
@@ -83,14 +83,14 @@ DigiKey does not split Irms and Isat on every row. A single Current Rating is no
 | Voltage - DC Reverse (Vr) (Max) | `voltage` | DD/DS reverse voltage. |
 | Voltage - Zener (Nom) (Vz) | `voltage` | DZ is voltage-first. |
 | Power - Max | `power` | DZ. Atlas `500mW`. |
-| Voltage - Forward (Vf) (Max) @ If | `vf` | Shop column. Not on current DD/DS ID. |
-| Tolerance | `ztol` | Zener Vz tolerance. Not on current DZ ID. |
-| Color | `color` | DL. Atlas seeds `RED`, `BLUE`. |
+| Voltage - Forward (Vf) (Max) @ If | `vf` | Atlas `0V7`, `0V3`, `2V0`. On DD, DS, DL. |
+| Tolerance | `ztol` | Zener Vz tolerance. Atlas `2%`, `5%`. On DZ. |
+| Color | `color` | DL. Atlas seeds `RED`, `BLUE`, `GREEN`, `YELLOW`, `WHITE`. |
 | Package / Case, Supplier Device Package | `package` | SOD123, SMA, SOD323, 0603, PTH-3mm. Outlines are not EIA chips. |
 | Diode Type / Technology | — | Standard vs Schottky selects class DD vs DS. Not a field. |
 | Qualification | — | AEC-Q101. Shop rating. |
 
-Vr / If / Vf are the usual rectifier trio. Atlas DD/DS ID is `current`, `package`, `voltage` only.
+Vr / If / Vf are the usual rectifier trio. Atlas DD/DS ID is `current`, `package`, `voltage`, `vf`.
 
 ## Transistors
 
@@ -105,37 +105,35 @@ Vr / If / Vf are the usual rectifier trio. Atlas DD/DS ID is `current`, `package
 | Package / Case, Supplier Device Package | `package` | SOT23, PTH-TO92. Outlines, not EIA chips. |
 | FET Type | — | N-Channel / P-Channel is the Key (`MN` / `MP`), not a field. |
 | Transistor Type | — | NPN / PNP is the Key (`QN` / `QP`), not a field. |
-| Rds On (Max) @ Id, Vgs | `rds` | Not on current MN/MP ID. |
-| Vgs(th) (Max) @ Id | `vgs` | Not on current MN/MP ID. |
-| DC Current Gain (hFE) (Min) @ Ic, Vce | `hfe` | Not on current QN/QP ID. |
+| Rds On (Max) @ Id, Vgs | `rds` | Atlas `20mR`. On MN, MP. |
+| Vgs(th) (Max) @ Id | `vgs` | Atlas `2V5`. On MN, MP. |
+| DC Current Gain (hFE) (Min) @ Ic, Vce | `hfe` | Atlas `100`. On QN, QP. |
 
 Channel polarity lives in the Key. Do not add a channel field from FET Type.
 
 ## ICs
 
-Still being specified. Key `IC` has zero fields. DigiKey splits ICs by function (op amps, MCUs, regulators, …), not as one family.
+Key `IC` Fields are `device`, `package`, `pins`. Specimen `IC-LM358-SOIC8-8`. DigiKey splits ICs by function (op amps, MCUs, regulators, …), not as one family.
 
 | DigiKey column | Atlas field | Notes |
 |---|---|---|
-| Manufacturer Part Number / Description | `device` | Candidate. e.g. LM358. |
-| Supplier Device Package | `package` | SOIC-8, SOT23-5. |
-| Number of Pins / Number of Terminations | `pins` | Candidate. |
-| Type / Amplifier Type / Function | `type` | Candidate. Shop taxonomy, not an Atlas class. |
-
-NOMENCLATURE examples such as `IC LM358 SOIC8` are a reminder, not a field template.
+| Manufacturer Part Number / Description | `device` | Chip name, e.g. `LM358`. Not the shop MPN (`LM358DR`). |
+| Supplier Device Package | `package` | `SOIC-8` → Atlas `SOIC8`. |
+| Number of Pins / Number of Terminations | `pins` | Atlas `8`, `14`, `32`. |
+| Type / Amplifier Type / Function | — | Shop taxonomy. Atlas has one Class. |
 
 ## Connectors
 
-[Rectangular Connectors - Headers, Male Pins](https://www.digikey.com/en/products/filter/rectangular-connectors-headers-male-pins/314). Key `JJ` has zero fields.
+[Rectangular Connectors - Headers, Male Pins](https://www.digikey.com/en/products/filter/rectangular-connectors-headers-male-pins/314). Key `JJ` Fields are `type`, `pins`, `pitch`, `orientation`, `mount`. Specimen `JJ-HDR-1x10-2.54mm-VERT-PTH`. USB-C is type `USBC` with the other Fields `X`.
 
 | DigiKey column | Atlas field | Notes |
 |---|---|---|
-| Connector Type | `type` | Header, Receptacle, … Candidate. |
-| Number of Positions | `pins` | Candidate. |
-| Pitch - Mating | `pitch` | DigiKey `0.100" (2.54mm)`. Candidate Atlas token `2.54mm`. |
-| Mounting Type | `mount` | Through Hole / Surface Mount. Candidate. |
-| Termination | `term` | Solder, Press-Fit, Crimp. Candidate. Not RS shunt `2T`/`4T`. |
-| Orientation | `orientation` | Straight / Right Angle. Candidate. |
-| Number of Rows | — | Not in the Atlas field list. |
+| Connector Type | `type` | Atlas `HDR`, `USBC`, `RJ45`, `TB`. |
+| Number of Positions | `pins` | Atlas `1x10`, `1x8`, `2x5`, `2PIN`. |
+| Pitch - Mating | `pitch` | DigiKey `0.100" (2.54mm)`. Atlas `2.54mm`. |
+| Mounting Type | `mount` | Through Hole / Surface Mount → `PTH` / `SMD`. |
+| Termination | — | Solder, Press-Fit, Crimp. Not an Atlas Field. Not RS shunt `2T`/`4T`. |
+| Orientation | `orientation` | Straight / Right Angle → `VERT` / `RA`. |
+| Number of Rows | — | Encoded in `pins` (`1x10` vs `2x5`). |
 
 Shop packaging, stock, and MPN stay out of Atlas.

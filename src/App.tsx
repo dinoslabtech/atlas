@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
 import { DerivedPanel } from '@/components/DerivedPanel'
 import { FamilyNav } from '@/components/FamilyNav'
@@ -9,6 +9,7 @@ import { IdentityStrip } from '@/components/IdentityStrip'
 import { PackageView3D } from '@/components/PackageView3D'
 import { TaxonomyEditor } from '@/components/TaxonomyEditor'
 import { Button } from '@/components/ui/button'
+import { isEditMode } from '@/lib/editMode'
 import { identity } from '@/lib/identity'
 import { parseHash, writeHash } from '@/lib/hash'
 import { deriveForFamily } from '@/lib/derived'
@@ -17,6 +18,20 @@ import { cloneTaxonomy, familyIsSpecified, findClassInFamily, findFamily, values
 import { seedFamilies, seedValues } from '@/seed/taxonomy'
 import type { ExampleValues, Family } from '@/seed/types'
 import { clearSnapshot, loadSnapshot, saveSnapshot } from '@/storage/localTaxonomy'
+import { familyTheme } from '@/theme/families'
+
+function selectedPackageId(
+  key: string,
+  vals: Record<string, string>,
+  fieldId: string,
+): string | undefined {
+  if (key === 'JJ') {
+    const type = vals.type
+    if (type === 'USBC' || type === 'RJ45' || type === 'TB' || type === 'HDR') return type
+    return vals.pins
+  }
+  return vals[fieldId]
+}
 
 function readStartup(): {
   families: Family[]
@@ -50,6 +65,7 @@ export default function App() {
   const [classKey, setClassKey] = useState(startup.classKey)
   const [editorOpen, setEditorOpen] = useState(false)
   const [ambientC, setAmbientC] = useState(25)
+  const [editMode, setEditMode] = useState(() => isEditMode(window.location.search))
   const familiesRef = useRef(families)
   const valuesRef = useRef(values)
   familiesRef.current = families
@@ -73,6 +89,10 @@ export default function App() {
   }, [screen, familyId, classKey])
 
   useEffect(() => {
+    if (!editMode) setEditorOpen(false)
+  }, [editMode])
+
+  useEffect(() => {
     const onHash = () => {
       const route = parseHash(window.location.hash, families)
       if (route.screen === 'home') {
@@ -83,8 +103,13 @@ export default function App() {
       setFamilyId(route.familyId)
       setClassKey(route.classKey)
     }
+    const onSearch = () => setEditMode(isEditMode(window.location.search))
     window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
+    window.addEventListener('popstate', onSearch)
+    return () => {
+      window.removeEventListener('hashchange', onHash)
+      window.removeEventListener('popstate', onSearch)
+    }
   }, [families])
 
   const family = findFamily(families, familyId)
@@ -98,7 +123,13 @@ export default function App() {
     (field) =>
       field.kind === 'chip-package' || field.id === 'package' || field.id === 'case' || field.id === 'pins',
   )
-  const shapes = part ? shapesForClass(part) : []
+  const shapes = part
+    ? shapesForClass(part, {
+        familyId,
+        ledColor: classValues.color,
+        connectorType: classValues.type,
+      })
+    : []
   const specified = family ? familyIsSpecified(family) : false
 
   function select(nextFamilyId: string, nextClassKey: string) {
@@ -135,20 +166,35 @@ export default function App() {
     return <HomePage families={families} />
   }
 
+  const theme = familyTheme(familyId)
+
   return (
-    <div className="mx-auto flex min-h-svh w-full max-w-6xl flex-col gap-6 p-4 sm:p-6">
+    <div
+      className="family-page mx-auto flex min-h-svh w-full max-w-6xl flex-col gap-6 p-4 sm:p-6"
+      style={
+        {
+          '--family-accent': theme.accent,
+          '--family-on-accent': theme.onAccent,
+        } as CSSProperties
+      }
+    >
       <header className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-1">
-            <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Dino's Lab</p>
+            <p className="eyebrow">Dino's Lab</p>
             <h1 className="text-3xl font-semibold tracking-tight">Atlas</h1>
-            <p className="text-sm text-muted-foreground">Where a part gets its Key, ID, and Name.</p>
+            <p className="text-sm text-muted-foreground">Look at the body, pick values, copy the ID.</p>
           </div>
           <Button variant="outline" asChild>
             <a href="#/">All types</a>
           </Button>
         </div>
-        <IdentityStrip keyCode={identityNow.key} id={identityNow.id} name={identityNow.name} />
+        <IdentityStrip
+          keyCode={identityNow.key}
+          id={identityNow.id}
+          name={identityNow.name}
+          familyId={familyId}
+        />
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
@@ -173,11 +219,23 @@ export default function App() {
           {part && shapes.length > 0 && packageField ? (
             <PackageView3D
               part={part}
-              selected={classValues[packageField.id]}
-              onSelect={(id) => setFieldValue(packageField.id, id)}
+              familyId={familyId}
+              values={classValues}
+              selected={selectedPackageId(part.key, classValues, packageField.id)}
+              onSelect={(id) => {
+                if (part.key === 'JJ') {
+                  if (id === 'USBC' || id === 'RJ45' || id === 'TB' || id === 'HDR') {
+                    setFieldValue('type', id)
+                    return
+                  }
+                  setFieldValue('pins', id)
+                  return
+                }
+                setFieldValue(packageField.id, id)
+              }}
             />
           ) : family ? (
-            <section aria-label="3D package view" className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
+            <section aria-label="3D package view" className="panel overflow-hidden">
               <div className="px-4 pt-4">
                 <h2 className="text-sm font-medium">3D packages</h2>
                 <p className="mt-1 text-xs text-muted-foreground">A representative body for this type.</p>
@@ -188,11 +246,11 @@ export default function App() {
 
           {part ? (
             <FieldPickers fields={part.fields} values={classValues} onChange={setFieldValue} />
-          ) : (
+          ) : editMode ? (
             <p className="text-sm text-muted-foreground">Add a class in the taxonomy editor to start.</p>
-          )}
+          ) : null}
 
-          {part ? (
+          {editMode && part ? (
             <DerivedPanel
               rows={deriveForFamily(familyId, part.key, classValues, ambientC)}
               ambientC={ambientC}
@@ -200,13 +258,15 @@ export default function App() {
             />
           ) : null}
 
-          <div>
-            <Button type="button" variant={editorOpen ? 'secondary' : 'outline'} onClick={() => setEditorOpen((open) => !open)}>
-              {editorOpen ? 'Hide taxonomy editor' : 'Edit taxonomy'}
-            </Button>
-          </div>
+          {editMode ? (
+            <div>
+              <Button type="button" variant={editorOpen ? 'secondary' : 'outline'} onClick={() => setEditorOpen((open) => !open)}>
+                {editorOpen ? 'Hide taxonomy editor' : 'Edit taxonomy'}
+              </Button>
+            </div>
+          ) : null}
 
-          {editorOpen ? (
+          {editMode && editorOpen ? (
             <TaxonomyEditor
               families={families}
               familyId={familyId}

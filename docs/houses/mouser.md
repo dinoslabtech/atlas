@@ -12,11 +12,11 @@ Catalog filters live under [mouser.com/c/](https://www.mouser.com/c/). Column na
 |---|---|---|
 | Resistance | `resistance` | Mouser `10 kOhms`. Atlas `10k`. |
 | Tolerance | `tolerance` | Mouser `1 %`. Atlas `1%`. |
-| Power Rating | `power` | Mouser `125 mW (1/8 W)`. Atlas `125mW`. RR does not carry power. |
+| Power Rating | `power` | Mouser `125 mW (1/8 W)`. Atlas `125mW`. On RR, RX, RW, RS, RN. |
 | Case Code - in | `package` | EIA imperial (`0402`, `0603`, `0805`). This is the Atlas chip token. |
 | Case Code - mm | — | Metric twin (`1005`, `1608`, `2012`). Not an Atlas package token. |
 | Temperature Coefficient | `tcr` | Mouser `100 PPM / C`. Atlas `100ppm`. |
-| Voltage Rating | `voltage` | Shop working voltage. Not on RR/RX ID. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
 | Product (Thick Film / Thin Film / Wirewound) | `tech` / class | Thick/Thin → RX `TK`/`TN`. Wirewound is class RW, not tech. |
 | Number of Terminations / Termination Style | `term` | Kelvin 4-terminal → RS `4T`. |
 | Circuit Type | `config` | Isolated / Bussed → RN `ISO` / `BUS`. |
@@ -25,7 +25,7 @@ Catalog filters live under [mouser.com/c/](https://www.mouser.com/c/). Column na
 
 **Disagreement — Case Code - in vs EIA package.** Atlas `package` for chips is the EIA imperial code (`0402`). Mouser exposes two columns. Use **Case Code - in**. Do not write **Case Code - mm** (`1005`) into an Atlas ID. Some rows swap the two columns (metric value in the inch field); check the part, do not trust the header blindly. Power-inductor and outline packages are not Case Code - in values.
 
-RR is three fields. Mouser always shows Power Rating, TCR, and Case Code; those extras belong on RX.
+RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TCR and tech stay on RX.
 
 ## Capacitors
 
@@ -41,7 +41,7 @@ RR is three fields. Mouser always shows Power Rating, TCR, and Case Code; those 
 | Case Code - mm | — | Not Atlas `package`. |
 | ESR | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | CE token is `105C`, not `+ 125 C` as a range end. |
+| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF. |
 | Product / Type | `subtype` | Aluminum / Polymer / Hybrid → `AL` / `ALP` / `ALH`. MnO2 / Polymer → `MNO2` / `POLY`. |
 | Case Code / Size | `case` | Tantalum A–E is Atlas `case` (CT). |
 | Dielectric / Film Type | `film` | PP, PET, PPS on CF. |
@@ -76,11 +76,11 @@ Mouser often lists a single Maximum DC Current. That does not fill both LP `isat
 |---|---|---|
 | If - Forward Current / Ifs - Forward Current | `current` | DD/DS. |
 | Vr Reverse Voltage / Vr - Reverse Voltage | `voltage` | DD/DS. |
-| Vf Forward Voltage / Vf - Forward Voltage | `vf` | Shop column. Not on current DD/DS ID. |
+| Vf Forward Voltage / Vf - Forward Voltage | `vf` | Atlas `0V7`, `0V3`, `2V0`. On DD, DS, DL. |
 | Zener Voltage | `voltage` | DZ. |
 | Pd - Power Dissipation | `power` | DZ. |
-| Zener Voltage Tolerance | `ztol` | Not on current DZ ID. |
-| If / Vr / Vf | — | The rectifier trio. Atlas ID is `current`, `package`, `voltage`. |
+| Zener Voltage Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
+| If / Vr / Vf | `current` / `voltage` / `vf` | The rectifier trio. Atlas DD/DS ID is `current`, `package`, `voltage`, `vf`. |
 | Package / Case | `package` | SOD123, SMA, SOD323. |
 | LED Color | `color` | DL. |
 | Qualification | — | AEC-Q101. Shop rating. |
@@ -97,34 +97,34 @@ Standard vs Schottky vs Zener vs LED selects class DD / DS / DZ / DL. Not a fiel
 | Ic - Collector Current | `current` | QN/QP. |
 | Vds - Drain-Source Breakdown Voltage | `voltage` | MN/MP. |
 | Vceo / Collector-Emitter Voltage | `voltage` | QN/QP. |
-| Rds On - Drain-Source Resistance | `rds` | Not on current MN/MP ID. |
-| Vgs th - Gate-Source Threshold Voltage | `vgs` | Not on current MN/MP ID. |
-| hFE - DC Current Gain | `hfe` | Not on current QN/QP ID. |
+| Rds On - Drain-Source Resistance | `rds` | Atlas `20mR`. On MN, MP. |
+| Vgs th - Gate-Source Threshold Voltage | `vgs` | Atlas `2V5`. On MN, MP. |
+| hFE - DC Current Gain | `hfe` | Atlas `100`. On QN, QP. |
 | Package / Case | `package` | SOT23, TO-92. |
 | Transistor Polarity | — | N-Channel / P-Channel / NPN / PNP is the Key, not a field. |
 
 ## ICs
 
-Still being specified. Key `IC` has zero fields. Mouser splits ICs under [Integrated Circuits](https://www.mouser.com/c/semiconductors/integrated-circuits-ics/).
+Key `IC` Fields are `device`, `package`, `pins`. Specimen `IC-LM358-SOIC8-8`. Mouser splits ICs under [Integrated Circuits](https://www.mouser.com/c/semiconductors/integrated-circuits-ics/).
 
 | Mouser column | Atlas field | Notes |
 |---|---|---|
-| Manufacturer Part Number | `device` | Candidate. |
-| Package / Case | `package` | Candidate. |
-| Number of Pins | `pins` | Candidate. |
-| Product / Type | `type` | Candidate. Shop function, not an Atlas class. |
+| Manufacturer Part Number | `device` | Chip name, e.g. `LM358`. |
+| Package / Case | `package` | `SOIC-8` → Atlas `SOIC8`. |
+| Number of Pins | `pins` | Atlas `8`, `14`, `32`. |
+| Product / Type | — | Shop function. Atlas has one Class. |
 
 ## Connectors
 
-[Connectors](https://www.mouser.com/c/connectors/). Headers sit under rectangular / pin-header subcategories. Key `JJ` has zero fields.
+[Connectors](https://www.mouser.com/c/connectors/). Headers sit under rectangular / pin-header subcategories. Key `JJ` Fields are `type`, `pins`, `pitch`, `orientation`, `mount`. Specimen `JJ-HDR-1x10-2.54mm-VERT-PTH`.
 
 | Mouser column | Atlas field | Notes |
 |---|---|---|
-| Connector Type / Product | `type` | Candidate. |
-| Number of Positions | `pins` | Candidate. |
-| Pitch | `pitch` | Candidate. |
-| Mounting Style / Mounting Type | `mount` | Candidate. |
-| Termination Style | `term` | Candidate. |
-| Orientation | `orientation` | Straight / Right Angle. Candidate. |
+| Connector Type / Product | `type` | Atlas `HDR`, `USBC`, `RJ45`, `TB`. |
+| Number of Positions | `pins` | Atlas `1x10`, `1x8`, `2x5`, `2PIN`. |
+| Pitch | `pitch` | Atlas `2.54mm`. |
+| Mounting Style / Mounting Type | `mount` | `PTH` / `SMD`. |
+| Termination Style | — | Not an Atlas Field. |
+| Orientation | `orientation` | Straight / Right Angle → `VERT` / `RA`. |
 
 Shop packaging, stock, and MPN stay out of Atlas.
