@@ -18,7 +18,7 @@ export function HomePage({ families }: HomePageProps) {
         <p className="eyebrow">Dino's Lab</p>
         <h1 className="text-3xl font-semibold tracking-tight">Atlas</h1>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          Where a part gets its Key, ID, and Name. Choose a component type to open its page.
+          Visualize a package, pick its values, copy the ID. Choose a component type to open its page.
         </p>
       </header>
 

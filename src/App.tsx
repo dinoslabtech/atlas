@@ -9,6 +9,7 @@ import { IdentityStrip } from '@/components/IdentityStrip'
 import { PackageView3D } from '@/components/PackageView3D'
 import { TaxonomyEditor } from '@/components/TaxonomyEditor'
 import { Button } from '@/components/ui/button'
+import { isEditMode } from '@/lib/editMode'
 import { identity } from '@/lib/identity'
 import { parseHash, writeHash } from '@/lib/hash'
 import { deriveForFamily } from '@/lib/derived'
@@ -64,6 +65,7 @@ export default function App() {
   const [classKey, setClassKey] = useState(startup.classKey)
   const [editorOpen, setEditorOpen] = useState(false)
   const [ambientC, setAmbientC] = useState(25)
+  const [editMode, setEditMode] = useState(() => isEditMode(window.location.search))
   const familiesRef = useRef(families)
   const valuesRef = useRef(values)
   familiesRef.current = families
@@ -87,6 +89,10 @@ export default function App() {
   }, [screen, familyId, classKey])
 
   useEffect(() => {
+    if (!editMode) setEditorOpen(false)
+  }, [editMode])
+
+  useEffect(() => {
     const onHash = () => {
       const route = parseHash(window.location.hash, families)
       if (route.screen === 'home') {
@@ -97,8 +103,13 @@ export default function App() {
       setFamilyId(route.familyId)
       setClassKey(route.classKey)
     }
+    const onSearch = () => setEditMode(isEditMode(window.location.search))
     window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
+    window.addEventListener('popstate', onSearch)
+    return () => {
+      window.removeEventListener('hashchange', onHash)
+      window.removeEventListener('popstate', onSearch)
+    }
   }, [families])
 
   const family = findFamily(families, familyId)
@@ -172,7 +183,7 @@ export default function App() {
           <div className="flex flex-col gap-1">
             <p className="eyebrow">Dino's Lab</p>
             <h1 className="text-3xl font-semibold tracking-tight">Atlas</h1>
-            <p className="text-sm text-muted-foreground">Where a part gets its Key, ID, and Name.</p>
+            <p className="text-sm text-muted-foreground">Look at the body, pick values, copy the ID.</p>
           </div>
           <Button variant="outline" asChild>
             <a href="#/">All types</a>
@@ -235,11 +246,11 @@ export default function App() {
 
           {part ? (
             <FieldPickers fields={part.fields} values={classValues} onChange={setFieldValue} />
-          ) : (
+          ) : editMode ? (
             <p className="text-sm text-muted-foreground">Add a class in the taxonomy editor to start.</p>
-          )}
+          ) : null}
 
-          {part ? (
+          {editMode && part ? (
             <DerivedPanel
               rows={deriveForFamily(familyId, part.key, classValues, ambientC)}
               ambientC={ambientC}
@@ -247,13 +258,15 @@ export default function App() {
             />
           ) : null}
 
-          <div>
-            <Button type="button" variant={editorOpen ? 'secondary' : 'outline'} onClick={() => setEditorOpen((open) => !open)}>
-              {editorOpen ? 'Hide taxonomy editor' : 'Edit taxonomy'}
-            </Button>
-          </div>
+          {editMode ? (
+            <div>
+              <Button type="button" variant={editorOpen ? 'secondary' : 'outline'} onClick={() => setEditorOpen((open) => !open)}>
+                {editorOpen ? 'Hide taxonomy editor' : 'Edit taxonomy'}
+              </Button>
+            </div>
+          ) : null}
 
-          {editorOpen ? (
+          {editMode && editorOpen ? (
             <TaxonomyEditor
               families={families}
               familyId={familyId}
