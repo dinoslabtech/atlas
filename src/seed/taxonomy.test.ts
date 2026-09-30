@@ -84,4 +84,15 @@ describe('seed taxonomy', () => {
     expect(pkg?.kind).toBe('chip-package')
     expect(pkg?.examples.some((example) => CHIP_EIA.has(example))).toBe(true)
   })
+
+  test('empty last Field copies as X on every specified Class', () => {
+    for (const family of seedFamilies) {
+      for (const part of family.classes) {
+        if (part.fields.length === 0) continue
+        const values = part.fields.map((field) => seedValues[part.key]?.[field.id] ?? '')
+        values[values.length - 1] = ''
+        expect(formatId(part.key, values).endsWith('-X')).toBe(true)
+      }
+    }
+  })
 })
