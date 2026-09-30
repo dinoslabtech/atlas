@@ -83,6 +83,7 @@ Mouser often lists a single Maximum DC Current. That does not fill both LP `isat
 | If / Vr / Vf | `current` / `voltage` / `vf` | The rectifier trio. Atlas DD/DS ID is `current`, `package`, `voltage`, `vf`. |
 | Package / Case | `package` | SOD123, SMA, SOD323. |
 | LED Color | `color` | DL. |
+| Lens Color/Style | `lens` | DL. Diffused vs water-clear → Atlas `DIFF` / `CLR`. |
 | Qualification | — | AEC-Q101. Shop rating. |
 
 Standard vs Schottky vs Zener vs LED selects class DD / DS / DZ / DL. Not a field.

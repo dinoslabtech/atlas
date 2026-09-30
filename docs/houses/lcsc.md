@@ -78,6 +78,7 @@ Diodes sit under Discrete Semiconductors (rectifiers, Schottky, Zener, LED).
 | Power Dissipation | `power` | DZ. |
 | Zener Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | Color / Emitted Color | `color` | DL. |
+| Lens Type | `lens` | DL. Diffused / water-clear → Atlas `DIFF` / `CLR`. |
 | Package | `package` | SOD123, SMA, SOD323, 0603. |
 
 Type (Standard / Schottky / Zener / LED) selects class DD / DS / DZ / DL.

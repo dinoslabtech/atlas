@@ -86,6 +86,7 @@ DigiKey does not split Irms and Isat on every row. A single Current Rating is no
 | Voltage - Forward (Vf) (Max) @ If | `vf` | Atlas `0V7`, `0V3`, `2V0`. On DD, DS, DL. |
 | Tolerance | `ztol` | Zener Vz tolerance. Atlas `2%`, `5%`. On DZ. |
 | Color | `color` | DL. Atlas seeds `RED`, `BLUE`, `GREEN`, `YELLOW`, `WHITE`. |
+| Lens Transparency | `lens` | DL. Diffused / Clear (Water Clear) → Atlas `DIFF` / `CLR`. Chip without epoxy is `X`. |
 | Package / Case, Supplier Device Package | `package` | SOD123, SMA, SOD323, 0603, PTH-3mm. Outlines are not EIA chips. |
 | Diode Type / Technology | — | Standard vs Schottky selects class DD vs DS. Not a field. |
 | Qualification | — | AEC-Q101. Shop rating. |
