@@ -60,7 +60,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Inductor Case / Package / Power Inductor Case | `package` | EIA for LL/LR/FB. LP uses power footprints. |
 | Self Resonant Frequency | `srf` | |
 | Inductor Construction | `shield` | Shielded / Unshielded → `SH` / `UN`. |
-| RMS Current (Irms) | `irms` / `irated` | LP `irms`; LC/FB `irated`. |
+| RMS Current (Irms) | `irms` / `irated` | LP `irms`; LL/LC/FB `irated`. |
 | Saturation Current (Isat) | `isat` | LP. |
 | DC Resistance Max | `dcr` | |
 | Q Factor | `q` | LR. |

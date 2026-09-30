@@ -57,7 +57,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Self-Resonant Frequency | `srf` | |
 | Shielded / Unshielded | `shield` | `SH` / `UN`. |
 | Saturation Current | `isat` | LP. |
-| Current Rating / Rated Current | `irms` or `irated` | LP `irms`; LC/FB `irated`. |
+| Current Rating / Rated Current | `irms` or `irated` | LP `irms`; LL/LC/FB `irated`. |
 | DC Resistance(DCR) | `dcr` | |
 | Q @ Frequency | `q` | LR. |
 | Impedance @ Frequency | `zimp` / `zcm` | Beads `zimp` (`600Ω@100MHz` → `600R@100MHz`). Common-mode `zcm`. |
