@@ -16,14 +16,14 @@ function valuesInOrder(key: string): string[] {
 }
 
 describe('inductors seed', () => {
-  test('LL default ID appends irated; FB ID is unchanged', () => {
+  test('LL default ID appends irated; FB default ID appends z1g', () => {
     expect(formatId('LL', valuesInOrder('LL'))).toBe('LL-100nH-5%-0402-500MHz-SH-500mA')
     expect(formatName('LL', classByKey('LL').fields, valuesInOrder('LL'))).toBe(
       'LL 100nH±5% 0402 500MHz SH 500mA',
     )
-    expect(formatId('FB', valuesInOrder('FB'))).toBe('FB-600R@100MHz-0402-500mA-200mR')
+    expect(formatId('FB', valuesInOrder('FB'))).toBe('FB-600R@100MHz-0402-500mA-200mR-1kR@1GHz')
     expect(formatName('FB', classByKey('FB').fields, valuesInOrder('FB'))).toBe(
-      'FB 600R@100MHz 0402 500mA 200mR',
+      'FB 600R@100MHz 0402 500mA 200mR 1kR@1GHz',
     )
   })
 
@@ -31,6 +31,12 @@ describe('inductors seed', () => {
     const values = [...valuesInOrder('LL')]
     values[values.length - 1] = ''
     expect(formatId('LL', values)).toBe('LL-100nH-5%-0402-500MHz-SH-X')
+  })
+
+  test('empty FB Z at 1 GHz keeps X in the last slot', () => {
+    const values = [...valuesInOrder('FB')]
+    values[values.length - 1] = ''
+    expect(formatId('FB', values)).toBe('FB-600R@100MHz-0402-500mA-200mR-X')
   })
 
   test('LP LR LC specimens keep their IDs', () => {
@@ -81,6 +87,7 @@ describe('inductors seed', () => {
       'package',
       'irated',
       'dcr',
+      'z1g',
     ])
   })
 
@@ -128,6 +135,13 @@ describe('inductors seed', () => {
     )
     expect(fb.fields.find((field) => field.id === 'zimp')?.examples).toEqual(
       expect.arrayContaining(['120R@100MHz', '1kR@100MHz', '600R@100MHz']),
+    )
+    expect(fb.fields.find((field) => field.id === 'z1g')?.label).toBe('Z at 1 GHz')
+    expect(fb.fields.find((field) => field.id === 'z1g')?.examples).toEqual(
+      expect.arrayContaining(['1kR@1GHz']),
+    )
+    expect(fb.fields.find((field) => field.id === 'z1g')?.examples.every((token) => !token.includes('-'))).toBe(
+      true,
     )
     expect(fb.fields.find((field) => field.id === 'package')?.examples).toEqual(
       expect.arrayContaining(['01005', '0402', '1210']),

@@ -65,6 +65,7 @@ Electrolytic, tantalum, film, and supercapacitor sit in sibling capacitor catego
 | Maximum DC Resistance | `dcr` | |
 | Q Factor | `q` | LR. |
 | Impedance | `zimp` / `zcm` | Beads / common-mode. |
+| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
 | Number of Lines | `lines` | LC. |
 | Automotive Standard | — | AEC-Q200. Shop rating. |
 

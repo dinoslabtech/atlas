@@ -45,6 +45,7 @@ export const inductorsFamily: Family = {
       field('package', 'Package', ['01005', '0201', '0402', '0603', '0805', '1206', '1210'], chip),
       field('irated', 'Rated current', ['50mA', '100mA', '500mA', '1A', '2A', '3A', '6A']),
       field('dcr', 'DCR', ['50mR', '80mR', '100mR', '200mR', '500mR', '1R5']),
+      field('z1g', 'Z at 1 GHz', ['1kR@1GHz']),
     ]),
   ],
 }
@@ -77,5 +78,5 @@ export const inductorsValues: ExampleValues = {
     dcr: '500mR',
     lines: '2L',
   },
-  FB: { zimp: '600R@100MHz', package: '0402', irated: '500mA', dcr: '200mR' },
+  FB: { zimp: '600R@100MHz', package: '0402', irated: '500mA', dcr: '200mR', z1g: '1kR@1GHz' },
 }
