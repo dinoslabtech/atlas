@@ -17,7 +17,7 @@ export function GullLead({
 }) {
   const t = 0.1
   const footLen = 0.5
-  const shoulderY = Math.min(bodyH * 0.38, 0.42)
+  const shoulderY = bodyH * 0.38
   return (
     <group>
       <mesh position={[x, t / 2, side * (bodyHalfZ + footLen * 0.55 + out)]}>
