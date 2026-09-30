@@ -29,6 +29,7 @@ export const diodesFamily: Family = {
       field('package', 'Package', ['0603', 'PTH-3mm'], chip),
       field('current', 'Current', ['20mA']),
       field('vf', 'Vf', ['2V0', '3V3']),
+      field('lens', 'Lens', ['DIFF', 'CLR']),
     ]),
   ],
 }

@@ -83,6 +83,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Power Dissipation Pd | `power` | DZ. |
 | Zener Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | LED Colour | `color` | DL. |
+| Lens Type | `lens` | DL. Diffused / water-clear → Atlas `DIFF` / `CLR`. |
 | Qualification | — | AEC-Q101. Shop rating. |
 
 Diode Configuration (Single / Dual) is not an Atlas field. Dual devices are a different type.

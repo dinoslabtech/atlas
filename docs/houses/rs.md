@@ -84,6 +84,7 @@ A single Maximum DC Current does not fill both LP `isat` and `irms`.
 | Power Dissipation | `power` | DZ. |
 | Voltage Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | LED Colour | `color` | DL. |
+| Lens Type | `lens` | DL. Diffused / water-clear → Atlas `DIFF` / `CLR`. |
 | Automotive Standard | — | AEC-Q101. Shop rating. |
 
 Diode Configuration (Single / Dual) is not an Atlas field.
