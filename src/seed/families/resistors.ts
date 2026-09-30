@@ -49,6 +49,7 @@ export const resistorsFamily: Family = {
       field('count', 'Count', ['4', '8']),
       field('config', 'Configuration', ['ISO', 'BUS']),
       field('tcr', 'TCR', ['10ppm', '25ppm', '50ppm', '100ppm', '200ppm']),
+      field('voltage', 'Voltage', ['25V', '50V']),
     ]),
   ],
 }
@@ -90,5 +91,6 @@ export const resistorsValues: ExampleValues = {
     count: '4',
     config: 'ISO',
     tcr: '100ppm',
+    voltage: '50V',
   },
 }

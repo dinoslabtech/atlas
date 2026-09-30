@@ -16,7 +16,7 @@ Farnell, Newark, and element14 share one parametric schema (Premier Farnell). Co
 | Resistor Case / Package | `package` | `0402 [1005 Metric]` → Atlas `0402`. Drop the metric bracket. |
 | Resistor Technology | `tech` | Thick Film / Thin Film → RX `TK` / `TN`. Metal Film (Thin Film) is `TN`. Wirewound is class RW. |
 | Temperature Coefficient | `tcr` | Farnell `± 100ppm/°C`. Atlas `100ppm`. |
-| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Operating Temperature Min | — | Not an Atlas resistor field. |
 | Operating Temperature Max | — | Not an Atlas resistor field. |
 | Qualification | — | AEC-Q200. Shop rating. |

@@ -16,7 +16,7 @@ Catalog filters live under [mouser.com/c/](https://www.mouser.com/c/). Column na
 | Case Code - in | `package` | EIA imperial (`0402`, `0603`, `0805`). This is the Atlas chip token. |
 | Case Code - mm | — | Metric twin (`1005`, `1608`, `2012`). Not an Atlas package token. |
 | Temperature Coefficient | `tcr` | Mouser `100 PPM / C`. Atlas `100ppm`. |
-| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Product (Thick Film / Thin Film / Wirewound) | `tech` / class | Thick/Thin → RX `TK`/`TN`. Wirewound is class RW, not tech. |
 | Number of Terminations / Termination Style | `term` | Kelvin 4-terminal → RS `4T`. |
 | Circuit Type | `config` | Isolated / Bussed → RN `ISO` / `BUS`. |
