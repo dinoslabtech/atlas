@@ -16,7 +16,7 @@ AEC-Q200 in a description line is a shop rating, not an Atlas ID field.
 | Power(Watts) | `power` | Datasheet rating is **at 70°C**. LCSC `62.5mW` / `100mW`. Atlas `63mW` / `100mW`. On RR, RX, RW, RS, RN. |
 | Temperature Coefficient | `tcr` | LCSC `±100ppm/℃`. Atlas `100ppm`. Also written T.C.R. |
 | Type | `tech` | Thick Film Resistor / Thin Film Resistor → RX `TK` / `TN`. Current Sense Resistor is class RS, not tech. |
-| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Operating Temperature | — | Not an Atlas resistor field. |
 
 **Tolerance letter vs percent.** LCSC (and the MPN) encode tolerance as F/J/G/B. Atlas `tolerance` is `1%`, `5%`. Map the letter, do not put `F` in the ID.

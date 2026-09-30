@@ -21,7 +21,7 @@ AEC-Q200 (and AEC-Q101) sit in **Ratings** / **Qualification**. That is a shop r
 | Features: Non-Inductive | `winding` | Atlas `NI` vs `STD` (RW). DigiKey has no winding column. |
 | Circuit Type | `config` | Isolated / Bussed → Atlas `ISO` / `BUS` (RN). |
 | Number of Resistors | `count` | RN element count. |
-| Voltage - Rated | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage - Rated | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Operating Temperature | — | Not an Atlas resistor field. |
 | Features: Automotive AEC-Q200 | — | Shop rating. |
 | Ratings | — | Shop rating. |

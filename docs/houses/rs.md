@@ -16,7 +16,7 @@ Catalog filters live under [uk.rs-online.com](https://uk.rs-online.com). Column 
 | Package/Case | `package` | EIA `0402`, `0603`, `0805`. |
 | Technology | `tech` | Thick Film / Thin Film → RX `TK` / `TN`. Wirewound is class RW. |
 | Temperature Coefficient | `tcr` | RS `±100 ppm/°C`. Atlas `100ppm`. |
-| Voltage | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Minimum / Maximum Operating Temperature | — | Not an Atlas resistor field. |
 | Automotive Standard | — | AEC-Q200. Shop rating. |
 | Resistor Type | — | General Purpose, Current Sense. Current Sense selects class RS. |
