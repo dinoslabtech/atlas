@@ -6,7 +6,7 @@ Field order is the detailed `ID:` template for each class. New slots are appende
 
 | Key | Name | Fields |
 |---|---|---|
-| CC | Ceramic (MLCC) | capacitance, tolerance, package, voltage, dielectric, temp |
+| CC | Ceramic (MLCC) | capacitance, tolerance, package, voltage, dielectric, temp, thickness |
 | CE | Electrolytic | capacitance, tolerance, package, voltage, esr, ripple, temp, subtype, lifetime |
 | CT | Tantalum / polymer-tantalum | capacitance, tolerance, case, voltage, esr, subtype, temp |
 | CF | Film | capacitance, tolerance, package, voltage, film, temp |
@@ -14,19 +14,19 @@ Field order is the detailed `ID:` template for each class. New slots are appende
 
 CE and CT packages are can sizes and case letters. They are not drawn as EIA chips. CF and CS may use an EIA code (`1210`) or a THT token (`THT5mm`, `THT10x30`); the chip drawing is shown because `1210` is on the draw list.
 
-CC voltage examples append `6V3` and `25V`. Dielectric examples append `X6S` and `NP0`. `NP0` is the same Class I body as `C0G`. CC and CT default temp is `125C`. CF defaults to `85C`. CE keeps its eight fields and appends lifetime; examples `2000h`, `5000h`, default `2000h`. CS keeps five fields and only adds example tokens.
+CC voltage examples append `6V3` and `25V`. Dielectric examples append `X6S` and `NP0`. `NP0` is the same Class I body as `C0G`. CC and CT default temp is `125C`. CC thickness examples are `0.5mm` and `0.8mm`, default `0.5mm`. CF defaults to `85C`. CE keeps its eight fields and appends lifetime; examples `2000h`, `5000h`, default `2000h`. CS keeps five fields and only adds example tokens.
 
 ## Specimens
 
 | Key | ID | Name |
 |---|---|---|
-| CC | `CC-100nF-10%-0402-50V-X7R-125C` | `CC 100nF 10% 0402 50V X7R 125C` |
+| CC | `CC-100nF-10%-0402-50V-X7R-125C-0.5mm` | `CC 100nF 10% 0402 50V X7R 125C 0.5mm` |
 | CE | `CE-100uF-20%-0810-35V-100mR-500mA-105C-AL-2000h` | `CE 100uF 20% 0810 35V 100mR 500mA 105C AL 2000h` |
 | CT | `CT-10uF-10%-B-16V-300mR-MNO2-125C` | `CT 10uF 10% B 16V 300mR MNO2 125C` |
 | CF | `CF-100nF-5%-THT5mm-250V-PP-85C` | `CF 100nF 5% THT5mm 250V PP 85C` |
 | CS | `CS-1F-20%-THT10x30-2V5-100mR` | `CS 1F 20% THT10x30 2V5 100mR` |
 
-The CC prefix `CC-100nF-10%-0402-50V-X7R` is unchanged. Temp fills the last slot.
+The CC prefix `CC-100nF-10%-0402-50V-X7R-125C` is unchanged. Thickness fills the last slot.
 
 Subtype tokens for CE: `AL`, `ALP`, `ALH`. For CT: `MNO2`, `POLY`.
 

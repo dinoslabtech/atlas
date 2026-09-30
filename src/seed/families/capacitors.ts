@@ -14,6 +14,7 @@ export const capacitorsFamily: Family = {
       field('voltage', 'Voltage', ['10V', '16V', '50V', '100V', '6V3', '25V']),
       field('dielectric', 'Dielectric', ['C0G', 'X7R', 'X5R', 'X7S', 'Y5V', 'X6S', 'NP0']),
       field('temp', 'Temperature', ['85C', '105C', '125C']),
+      field('thickness', 'Thickness', ['0.5mm', '0.8mm']),
     ]),
     partClass('CE', 'Electrolytic (aluminum, polymer, hybrid)', [
       field('capacitance', 'Capacitance', ['100uF', '1000uF']),
@@ -61,6 +62,7 @@ export const capacitorsValues: ExampleValues = {
     voltage: '50V',
     dielectric: 'X7R',
     temp: '125C',
+    thickness: '0.5mm',
   },
   CE: {
     capacitance: '100uF',
