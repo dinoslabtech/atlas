@@ -9,7 +9,7 @@ Atlas is one Vite app at the repository root.
 ├── README.md
 ├── ROADMAP.md
 ├── adocs/
-├── docs/
+├── docs/               # family specs; adr/ for decisions
 ├── src/
 │   ├── components/     # workshop UI; ui/ is shadcn
 │   ├── lib/            # identity, hash, taxonomy helpers
