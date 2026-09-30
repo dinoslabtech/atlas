@@ -18,6 +18,19 @@ import { seedFamilies, seedValues } from '@/seed/taxonomy'
 import type { ExampleValues, Family } from '@/seed/types'
 import { clearSnapshot, loadSnapshot, saveSnapshot } from '@/storage/localTaxonomy'
 
+function selectedPackageId(
+  key: string,
+  vals: Record<string, string>,
+  fieldId: string,
+): string | undefined {
+  if (key === 'JJ') {
+    const type = vals.type
+    if (type === 'USBC' || type === 'RJ45' || type === 'TB' || type === 'HDR') return type
+    return vals.pins
+  }
+  return vals[fieldId]
+}
+
 function readStartup(): {
   families: Family[]
   values: ExampleValues
@@ -98,7 +111,13 @@ export default function App() {
     (field) =>
       field.kind === 'chip-package' || field.id === 'package' || field.id === 'case' || field.id === 'pins',
   )
-  const shapes = part ? shapesForClass(part) : []
+  const shapes = part
+    ? shapesForClass(part, {
+        familyId,
+        ledColor: classValues.color,
+        connectorType: classValues.type,
+      })
+    : []
   const specified = family ? familyIsSpecified(family) : false
 
   function select(nextFamilyId: string, nextClassKey: string) {
@@ -140,7 +159,7 @@ export default function App() {
       <header className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-1">
-            <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Dino's Lab</p>
+            <p className="eyebrow">Dino's Lab</p>
             <h1 className="text-3xl font-semibold tracking-tight">Atlas</h1>
             <p className="text-sm text-muted-foreground">Where a part gets its Key, ID, and Name.</p>
           </div>
@@ -148,7 +167,12 @@ export default function App() {
             <a href="#/">All types</a>
           </Button>
         </div>
-        <IdentityStrip keyCode={identityNow.key} id={identityNow.id} name={identityNow.name} />
+        <IdentityStrip
+          keyCode={identityNow.key}
+          id={identityNow.id}
+          name={identityNow.name}
+          familyId={familyId}
+        />
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
@@ -173,11 +197,23 @@ export default function App() {
           {part && shapes.length > 0 && packageField ? (
             <PackageView3D
               part={part}
-              selected={classValues[packageField.id]}
-              onSelect={(id) => setFieldValue(packageField.id, id)}
+              familyId={familyId}
+              values={classValues}
+              selected={selectedPackageId(part.key, classValues, packageField.id)}
+              onSelect={(id) => {
+                if (part.key === 'JJ') {
+                  if (id === 'USBC' || id === 'RJ45' || id === 'TB' || id === 'HDR') {
+                    setFieldValue('type', id)
+                    return
+                  }
+                  setFieldValue('pins', id)
+                  return
+                }
+                setFieldValue(packageField.id, id)
+              }}
             />
           ) : family ? (
-            <section aria-label="3D package view" className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
+            <section aria-label="3D package view" className="panel overflow-hidden">
               <div className="px-4 pt-4">
                 <h2 className="text-sm font-medium">3D packages</h2>
                 <p className="mt-1 text-xs text-muted-foreground">A representative body for this type.</p>

@@ -11,16 +11,28 @@ import {
   shapesForClass,
   type PackageShape,
 } from '@/lib/packageShapes'
-import type { PartClass } from '@/seed/types'
+import type { ClassValues, PartClass } from '@/seed/types'
+import { familyTheme } from '@/theme/families'
 
 type PackageView3DProps = {
   part: PartClass
+  familyId: string
+  values?: ClassValues
   selected?: string
   onSelect?: (id: string) => void
 }
 
-export function PackageView3D({ part, selected, onSelect }: PackageView3DProps) {
-  const shapes = useMemo(() => shapesForClass(part), [part])
+export function PackageView3D({ part, familyId, values, selected, onSelect }: PackageView3DProps) {
+  const theme = familyTheme(familyId)
+  const shapes = useMemo(
+    () =>
+      shapesForClass(part, {
+        familyId,
+        ledColor: values?.color,
+        connectorType: values?.type,
+      }),
+    [part, familyId, values?.color, values?.type],
+  )
   if (shapes.length === 0) return null
 
   const laidOut = layout(shapes)
@@ -33,7 +45,7 @@ export function PackageView3D({ part, selected, onSelect }: PackageView3DProps) 
     : [dist * 0.35, dist * 0.55, dist]
 
   return (
-    <section aria-label="3D package view" className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
+    <section aria-label="3D package view" className="panel overflow-hidden">
       <div className="flex items-start justify-between gap-3 px-4 pt-4">
         <div>
           <h2 className="text-sm font-medium">3D packages</h2>
@@ -43,13 +55,9 @@ export function PackageView3D({ part, selected, onSelect }: PackageView3DProps) 
         </div>
       </div>
       <div className="h-[22rem] w-full sm:h-[26rem]">
-        <Canvas
-          shadows
-          dpr={[1, 2]}
-          gl={{ antialias: true }}
-        >
+        <Canvas shadows dpr={[1, 2]} gl={{ antialias: true }}>
           <PerspectiveCamera makeDefault position={camPos} fov={30} up={[0, 1, 0]} near={0.1} far={500} />
-          <color attach="background" args={['#f4f4f5']} />
+          <color attach="background" args={[theme.sceneBg]} />
           <ambientLight intensity={0.75} />
           <directionalLight
             position={[span * 0.4, dist, span * 0.3]}
@@ -59,12 +67,12 @@ export function PackageView3D({ part, selected, onSelect }: PackageView3DProps) 
             shadow-mapSize-height={1024}
           />
           <directionalLight position={[-span * 0.5, dist * 0.5, -span * 0.2]} intensity={0.35} />
-          <hemisphereLight args={['#ffffff', '#c4c4c8', 0.4]} />
+          <hemisphereLight args={['#ffffff', theme.sceneGround, 0.4]} />
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
             <planeGeometry args={[span * 4, span * 4]} />
-            <meshStandardMaterial color="#e4e4e7" roughness={0.9} metalness={0} />
+            <meshStandardMaterial color={theme.sceneGround} roughness={0.9} metalness={0} />
           </mesh>
-          <gridHelper args={[span * 2, Math.max(8, Math.round(span)), '#d4d4d8', '#ececef']} position={[0, 0.01, 0]} />
+          <gridHelper args={[span * 2, Math.max(8, Math.round(span)), theme.grid, theme.gridFine]} position={[0, 0.01, 0]} />
           {laidOut.items.map((item) => (
             <group key={item.shape.id} position={[item.x, 0, 0]}>
               <PackageMesh
@@ -93,7 +101,7 @@ export function PackageView3D({ part, selected, onSelect }: PackageView3DProps) 
             onClick={() => onSelect?.(shape.id)}
             className={
               selected === shape.id
-                ? 'rounded-md bg-foreground px-2 py-1 font-mono text-xs text-background'
+                ? 'rounded-md bg-primary px-2 py-1 font-mono text-xs text-primary-foreground'
                 : 'rounded-md bg-muted px-2 py-1 font-mono text-xs text-foreground'
             }
           >
