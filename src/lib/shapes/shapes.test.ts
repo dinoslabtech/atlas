@@ -1,6 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 
-import { boundingHeight, boundingWidth, familyPreviewKind, shapesForClass } from '@/lib/shapes'
+import {
+  boundingHeight,
+  boundingWidth,
+  familyPreviewKind,
+  focusPose,
+  layoutShapes,
+  lineupPose,
+  shapesForClass,
+} from '@/lib/shapes'
 import { seedFamilies } from '@/seed/taxonomy'
 
 describe('shapesForClass', () => {
@@ -95,5 +103,23 @@ describe('shapesForClass', () => {
     expect(familyPreviewKind('transistors').type).toBe('to92')
     expect(familyPreviewKind('ics').type).toBe('soic')
     expect(familyPreviewKind('connectors').type).toBe('usbc')
+  })
+
+  test('focus pose looks at the laid-out body; lineup looks at the origin', () => {
+    const rr = seedFamilies.flatMap((family) => family.classes).find((item) => item.key === 'RR')
+    expect(rr).toBeDefined()
+    const shapes = shapesForClass(rr!, { familyId: 'resistors' })
+    const laid = layoutShapes(shapes)
+    const item = laid.items.find((entry) => entry.shape.id === '0402')
+    expect(item).toBeDefined()
+    const focused = focusPose(item!.shape, item!.x)
+    expect(focused.target[0]).toBe(item!.x)
+    expect(focused.target[1]).toBeGreaterThan(0)
+    expect(focused.minDistance).toBeGreaterThan(0)
+    expect(focused.maxDistance).toBeGreaterThan(focused.minDistance)
+    const tallest = Math.max(...shapes.map(boundingHeight), 1)
+    const lineup = lineupPose(shapes, laid.span, tallest)
+    expect(lineup.target[0]).toBe(0)
+    expect(lineup.minDistance).toBeGreaterThan(0)
   })
 })

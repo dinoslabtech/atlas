@@ -174,6 +174,53 @@ export function previewCameraDistance(shape: PackageShape): number {
   return Math.max(vertical / (2 * Math.tan(fov / 2) * fill), 5)
 }
 
+export type CameraPose = {
+  position: [number, number, number]
+  target: [number, number, number]
+  minDistance: number
+  maxDistance: number
+}
+
+export function layoutShapes(shapes: PackageShape[]): { items: { shape: PackageShape; x: number }[]; span: number } {
+  const widths = shapes.map(boundingWidth)
+  const gap = Math.max(1.8, Math.max(...widths, 1) * 0.4)
+  const total = widths.reduce((sum, w) => sum + w, 0) + gap * (shapes.length - 1)
+  let cursor = -total / 2
+  const items = shapes.map((shape, index) => {
+    const width = widths[index]!
+    const x = cursor + width / 2
+    cursor += width + gap
+    return { shape, x }
+  })
+  return { items, span: total }
+}
+
+export function lineupPose(shapes: PackageShape[], span: number, tallest: number): CameraPose {
+  const chipOnly = isChipLineup(shapes)
+  const dist = lineupCameraDistance(span, tallest, shapes)
+  const position: [number, number, number] = chipOnly
+    ? [dist * 0.04, dist * 0.72, dist * 0.5]
+    : [dist * 0.35, dist * 0.55, dist]
+  return {
+    position,
+    target: [0, tallest * 0.35, 0],
+    minDistance: chipOnly ? 1.2 : 3,
+    maxDistance: Math.max(span * 3, dist * 1.5),
+  }
+}
+
+export function focusPose(shape: PackageShape, x: number): CameraPose {
+  const height = boundingHeight(shape)
+  const dist = previewCameraDistance(shape)
+  const target: [number, number, number] = [x, height * 0.42, 0]
+  return {
+    position: [x + dist * 0.72, dist * 0.55, dist * 0.9],
+    target,
+    minDistance: Math.max(dist * 0.28, 0.6),
+    maxDistance: dist * 3.2,
+  }
+}
+
 export function shapeFromToken(token: string, classKey: string): PackageShape | undefined {
   return (
     resistorFromToken(token, classKey) ??
