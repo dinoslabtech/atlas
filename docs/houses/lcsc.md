@@ -38,7 +38,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Temperature Coefficient | `dielectric` | C0G, X7R, X5R, X7S, Y5V. This is **not** resistor TCR. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
+| Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case / Size | `case` | Tantalum A–E (CT). |
@@ -61,8 +61,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Current Rating / Rated Current | `irms` or `irated` | LP `irms`; LL/LC/FB `irated`. |
 | DC Resistance(DCR) | `dcr` | |
 | Q @ Frequency | `q` | LR. |
-| Impedance @ Frequency | `zimp` / `zcm` | Beads `zimp` (`600Ω@100MHz` → `600R@100MHz`). Common-mode `zcm`. |
-| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
+| Impedance @ Frequency | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600Ω@100MHz` → `600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | Number of Circuits / Lines | `lines` | LC `2L` / `4L`. |
 
 One Current Rating column does not fill both LP `isat` and `irms`.

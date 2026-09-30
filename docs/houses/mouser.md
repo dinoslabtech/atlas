@@ -41,7 +41,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Case Code - mm | — | Not Atlas `package`. |
 | ESR | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
+| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Product / Type | `subtype` | Aluminum / Polymer / Hybrid → `AL` / `ALP` / `ALH`. MnO2 / Polymer → `MNO2` / `POLY`. |
 | Case Code / Size | `case` | Tantalum A–E is Atlas `case` (CT). |
@@ -63,8 +63,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | DCR / Maximum DC Resistance | `dcr` | |
 | Self Resonant Frequency / SRF | `srf` | |
 | Q | `q` | LR. Atlas `Q50`. |
-| Impedance | `zimp` / `zcm` | Beads `zimp`; common-mode `zcm`. Token `600R@100MHz`. |
-| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
+| Impedance | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | Number of Lines / Channels | `lines` | LC `2L` / `4L`. |
 | Qualification | — | AEC-Q200. Shop rating. |
 
@@ -85,7 +84,7 @@ Mouser often lists a single Maximum DC Current. That does not fill both LP `isat
 | If / Vr / Vf | `current` / `voltage` / `vf` | The rectifier trio. Atlas DD/DS ID is `current`, `package`, `voltage`, `vf`. |
 | Package / Case | `package` | SOD123, SMA, SOD323. |
 | LED Color | `color` | DL. |
-| Lens Color/Style | `lens` | DL. Diffused vs water-clear → Atlas `DIFF` / `CLR`. |
+| Lens Transparency | `lens` | DL. Diffused vs water-clear → Atlas `DIFF` / `CLR`. Chip without epoxy is `X`. Lens Color is epoxy tint, not this Field. |
 | Qualification | — | AEC-Q101. Shop rating. |
 
 Standard vs Schottky vs Zener vs LED selects class DD / DS / DZ / DL. Not a field.

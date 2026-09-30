@@ -43,7 +43,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Temperature Coefficient | `dielectric` | C0G, X7R, X5R, X7S, Y5V on MLCC. This is **not** resistor TCR. |
 | ESR (Equivalent Series Resistance) | `esr` | CE/CT/CS. Atlas `100mR`. |
 | Ripple Current | `ripple` | CE. Atlas `500mA`. |
-| Operating Temperature | `temp` | Grade token `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
+| Operating Temperature | `temp` | Grade token `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
 | Thickness (Max) | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Lifetime @ Temp | `lifetime` | CE hours token (`2000h`, `5000h`). Separate from `temp`. |
 | Polarization / Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid → CE `AL` / `ALP` / `ALH`. MnO2 / Polymer → CT `MNO2` / `POLY`. |
@@ -68,8 +68,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Current - Saturation (Isat) | `isat` | LP. Often missing on signal/RF rows. |
 | DC Resistance (DCR) | `dcr` | Atlas `80mR`. |
 | Q @ Freq | `q` | LR only. Atlas `Q50`. LL does not carry Q. |
-| Impedance @ Frequency | `zimp` / `zcm` | Beads → `zimp` (`600R@100MHz`). Common-mode impedance → `zcm`. |
-| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. The 100 MHz catalog column stays `zimp`. |
+| Impedance @ Frequency | `zimp` / `zcm` / `z1g` | Beads → `zimp` (`600R@100MHz`). A 1 GHz reading on the same datasheet is `z1g` (`1kR@1GHz`). Common-mode → `zcm`. |
 | Number of Lines | `lines` | `2` / `4` → `2L` / `4L` (LC). |
 | Ratings | — | AEC-Q200. Shop rating. |
 

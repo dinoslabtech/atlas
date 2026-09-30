@@ -42,7 +42,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Dielectric Characteristic | `dielectric` | C0G / NP0, X7R, X5R, X7S, Y5V. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
+| Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Operating Temperature Min | — | Not Atlas `temp` by itself. |
 | Capacitor Type / Technology | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
@@ -65,8 +65,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Saturation Current (Isat) | `isat` | LP. |
 | DC Resistance Max | `dcr` | |
 | Q Factor | `q` | LR. |
-| Impedance | `zimp` / `zcm` | Beads / common-mode. |
-| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
+| Impedance | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | No. of Lines | `lines` | LC. |
 | Qualification | — | AEC-Q200. Shop rating. |
 

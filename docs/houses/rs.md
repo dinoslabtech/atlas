@@ -38,7 +38,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Case Size / Package/Case | `package` | EIA `0402`, `0603`, `0805`, `1206`. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS, not typical on MLCC. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
+| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case Code | `case` | Tantalum A–E (CT). |
@@ -64,8 +64,7 @@ Electrolytic, tantalum, film, and supercapacitor sit in sibling capacitor catego
 | Saturation Current | `isat` | LP. Often absent. |
 | Maximum DC Resistance | `dcr` | |
 | Q Factor | `q` | LR. |
-| Impedance | `zimp` / `zcm` | Beads / common-mode. |
-| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
+| Impedance | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | Number of Lines | `lines` | LC. |
 | Automotive Standard | — | AEC-Q200. Shop rating. |
 

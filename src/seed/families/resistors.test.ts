@@ -38,6 +38,12 @@ describe('resistors seed', () => {
     )
   })
 
+  test('unset RN voltage copies as X', () => {
+    const values = valuesInOrder('RN')
+    values[values.length - 1] = ''
+    expect(formatId('RN', values)).toBe('RN-10k-1%-0402x4-63mW-4-ISO-100ppm-X')
+  })
+
   test('appended fields stay after the existing sequence', () => {
     expect(classByKey('RR').fields.map((field) => field.id)).toEqual([
       'resistance',
