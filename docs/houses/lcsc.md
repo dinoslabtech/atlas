@@ -39,6 +39,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
 | Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF. |
+| Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case / Size | `case` | Tantalum A–E (CT). |
 | Dielectric / Material | `film` | PP, PET, PPS on CF. |

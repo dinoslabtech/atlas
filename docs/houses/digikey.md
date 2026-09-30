@@ -44,6 +44,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | ESR (Equivalent Series Resistance) | `esr` | CE/CT/CS. Atlas `100mR`. |
 | Ripple Current | `ripple` | CE. Atlas `500mA`. |
 | Operating Temperature | `temp` | Grade token `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. On CC, CE, CT, CF. |
+| Thickness (Max) | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Lifetime @ Temp | `lifetime` | CE hours token (`2000h`, `5000h`). Separate from `temp`. |
 | Polarization / Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid → CE `AL` / `ALP` / `ALH`. MnO2 / Polymer → CT `MNO2` / `POLY`. |
 | Size / Dimension, Height | `case` | Tantalum case letters A–E are Atlas `case` (CT), not `package`. |

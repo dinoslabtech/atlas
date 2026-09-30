@@ -43,6 +43,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
 | Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF. |
+| Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Operating Temperature Min | — | Not Atlas `temp` by itself. |
 | Capacitor Type / Technology | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Tantalum Case Code | `case` | A–E (CT). |

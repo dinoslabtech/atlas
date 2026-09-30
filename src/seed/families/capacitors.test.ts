@@ -22,12 +22,12 @@ function examples(key: string, fieldId: string): string[] {
 }
 
 describe('capacitors seed', () => {
-  test('CC keeps the five-field prefix and completes with 125C', () => {
+  test('CC keeps the six-field prefix and completes with 0.5mm', () => {
     const id = formatId('CC', valuesInOrder('CC'))
-    expect(id.startsWith('CC-100nF-10%-0402-50V-X7R')).toBe(true)
-    expect(id).toBe('CC-100nF-10%-0402-50V-X7R-125C')
+    expect(id.startsWith('CC-100nF-10%-0402-50V-X7R-125C')).toBe(true)
+    expect(id).toBe('CC-100nF-10%-0402-50V-X7R-125C-0.5mm')
     expect(formatName('CC', classByKey('CC').fields, valuesInOrder('CC'))).toBe(
-      'CC 100nF 10% 0402 50V X7R 125C',
+      'CC 100nF 10% 0402 50V X7R 125C 0.5mm',
     )
     expect(classByKey('CC').fields.map((field) => field.id)).toEqual([
       'capacitance',
@@ -36,7 +36,16 @@ describe('capacitors seed', () => {
       'voltage',
       'dielectric',
       'temp',
+      'thickness',
     ])
+    expect(classByKey('CC').fields.at(-1)).toMatchObject({ id: 'thickness', label: 'Thickness' })
+  })
+
+  test('unset CC thickness copies as X', () => {
+    const values = valuesInOrder('CC')
+    expect(classByKey('CC').fields.at(-1)?.id).toBe('thickness')
+    values[values.length - 1] = ''
+    expect(formatId('CC', values)).toBe('CC-100nF-10%-0402-50V-X7R-125C-X')
   })
 
   test('appended fields keep the earlier slots', () => {
@@ -69,6 +78,7 @@ describe('capacitors seed', () => {
   test('example tokens expand without reordering the old list', () => {
     expect(examples('CC', 'voltage')).toEqual(['10V', '16V', '50V', '100V', '6V3', '25V'])
     expect(examples('CC', 'dielectric')).toEqual(['C0G', 'X7R', 'X5R', 'X7S', 'Y5V', 'X6S', 'NP0'])
+    expect(examples('CC', 'thickness')).toEqual(['0.5mm', '0.8mm'])
     expect(examples('CE', 'lifetime')).toEqual(['2000h', '5000h'])
     expect(examples('CS', 'capacitance').slice(0, 4)).toEqual(['1F', '10F', '100F', '470mF'])
     expect(examples('CS', 'capacitance')).toContain('220mF')
