@@ -64,6 +64,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Self Resonant Frequency / SRF | `srf` | |
 | Q | `q` | LR. Atlas `Q50`. |
 | Impedance | `zimp` / `zcm` | Beads `zimp`; common-mode `zcm`. Token `600R@100MHz`. |
+| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
 | Number of Lines / Channels | `lines` | LC `2L` / `4L`. |
 | Qualification | — | AEC-Q200. Shop rating. |
 

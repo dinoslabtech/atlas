@@ -62,6 +62,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | DC Resistance(DCR) | `dcr` | |
 | Q @ Frequency | `q` | LR. |
 | Impedance @ Frequency | `zimp` / `zcm` | Beads `zimp` (`600Ω@100MHz` → `600R@100MHz`). Common-mode `zcm`. |
+| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
 | Number of Circuits / Lines | `lines` | LC `2L` / `4L`. |
 
 One Current Rating column does not fill both LP `isat` and `irms`.

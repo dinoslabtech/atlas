@@ -69,6 +69,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | DC Resistance (DCR) | `dcr` | Atlas `80mR`. |
 | Q @ Freq | `q` | LR only. Atlas `Q50`. LL does not carry Q. |
 | Impedance @ Frequency | `zimp` / `zcm` | Beads → `zimp` (`600R@100MHz`). Common-mode impedance → `zcm`. |
+| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. The 100 MHz catalog column stays `zimp`. |
 | Number of Lines | `lines` | `2` / `4` → `2L` / `4L` (LC). |
 | Ratings | — | AEC-Q200. Shop rating. |
 

@@ -66,6 +66,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | DC Resistance Max | `dcr` | |
 | Q Factor | `q` | LR. |
 | Impedance | `zimp` / `zcm` | Beads / common-mode. |
+| Impedance @ 1 GHz | `z1g` | Beads. Atlas `1kR@1GHz`. |
 | No. of Lines | `lines` | LC. |
 | Qualification | — | AEC-Q200. Shop rating. |
 
