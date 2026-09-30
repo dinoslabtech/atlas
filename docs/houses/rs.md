@@ -38,7 +38,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Case Size / Package/Case | `package` | EIA `0402`, `0603`, `0805`, `1206`. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS, not typical on MLCC. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF. |
+| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case Code | `case` | Tantalum A–E (CT). |

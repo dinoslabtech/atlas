@@ -50,6 +50,7 @@ export const capacitorsFamily: Family = {
       field('package', 'Package', ['1210', 'THT10x30', 'THT8x12'], chip),
       field('voltage', 'Voltage', ['2V5', '5V', '5V5', '2V7', '3V']),
       field('esr', 'ESR', ['10mR', '100mR', '1R', '30mR']),
+      field('temp', 'Temperature', ['70C', '85C']),
     ]),
   ],
 }
@@ -92,5 +93,12 @@ export const capacitorsValues: ExampleValues = {
     film: 'PP',
     temp: '85C',
   },
-  CS: { capacitance: '1F', tolerance: '20%', package: 'THT10x30', voltage: '2V5', esr: '100mR' },
+  CS: {
+    capacitance: '1F',
+    tolerance: '20%',
+    package: 'THT10x30',
+    voltage: '2V5',
+    esr: '100mR',
+    temp: '70C',
+  },
 }

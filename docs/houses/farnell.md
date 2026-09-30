@@ -42,7 +42,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Dielectric Characteristic | `dielectric` | C0G / NP0, X7R, X5R, X7S, Y5V. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF. |
+| Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Operating Temperature Min | — | Not Atlas `temp` by itself. |
 | Capacitor Type / Technology | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |

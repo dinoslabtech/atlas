@@ -41,7 +41,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Case Code - mm | — | Not Atlas `package`. |
 | ESR | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF. |
+| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF. Supercap grades include `70C` (CS). |
 | Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Product / Type | `subtype` | Aluminum / Polymer / Hybrid → `AL` / `ALP` / `ALH`. MnO2 / Polymer → `MNO2` / `POLY`. |
 | Case Code / Size | `case` | Tantalum A–E is Atlas `case` (CT). |
