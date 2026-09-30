@@ -1,4 +1,4 @@
-import { CHIP_BODY, METAL } from '@/components/models/materials'
+import { CHIP_BODY, COPPER, METAL } from '@/components/models/materials'
 import type { PackageShape } from '@/lib/packageShapes'
 
 export function ChipBody({
@@ -47,9 +47,9 @@ export function ChipBody({
         </mesh>
       ) : null}
       {shape.style === 'inductor' || shape.style === 'ferrite' ? (
-        <mesh position={[0, shape.thickness * 0.55, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[Math.min(shape.width, shape.length) * 0.18, shape.thickness * 0.12, 8, 16]} />
-          <meshStandardMaterial color="#b87333" metalness={0.55} roughness={0.35} />
+        <mesh position={[0, (shape.thickness * 1.1) / 2, 0]} castShadow>
+          <boxGeometry args={[bodyLen * 0.55, shape.thickness * 1.1, shape.width * 1.14]} />
+          <meshStandardMaterial color={COPPER} metalness={0.58} roughness={0.34} />
         </mesh>
       ) : null}
       <mesh position={[-(bodyLen / 2 + cap / 2), shape.thickness / 2, 0]} castShadow>

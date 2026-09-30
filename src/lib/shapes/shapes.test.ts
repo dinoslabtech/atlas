@@ -53,6 +53,32 @@ describe('shapesForClass', () => {
     expect(shapes.some((shape) => shape.type === 'header')).toBe(true)
   })
 
+  test('LP power footprints stay square; LC metric codes are common-mode', () => {
+    const classes = seedFamilies.flatMap((family) => family.classes)
+    const lp = classes.find((item) => item.key === 'LP')
+    const lc = classes.find((item) => item.key === 'LC')
+    const ll = classes.find((item) => item.key === 'LL')
+    const fb = classes.find((item) => item.key === 'FB')
+    expect(lp && lc && ll && fb).toBeDefined()
+    const power = shapesForClass(lp!, { familyId: 'inductors' })
+    expect(power.map((shape) => shape.id)).toEqual(['2520', '3015', '4020', '5020', '6028'])
+    for (const shape of power) {
+      expect(shape.type).toBe('power')
+      if (shape.type === 'power') expect(shape.length).toBe(shape.width)
+    }
+    const common = shapesForClass(lc!, { familyId: 'inductors' })
+    expect(common.find((shape) => shape.id === '0805')?.type).toBe('chip')
+    expect(common.find((shape) => shape.id === '1206')?.type).toBe('chip')
+    expect(common.find((shape) => shape.id === '1812')?.type).toBe('chip')
+    expect(common.find((shape) => shape.id === '2012')?.type).toBe('common-mode')
+    expect(common.find((shape) => shape.id === '3216')?.type).toBe('common-mode')
+    expect(common.find((shape) => shape.id === '4532')?.type).toBe('common-mode')
+    const signal = shapesForClass(ll!, { familyId: 'inductors' })
+    const bead = shapesForClass(fb!, { familyId: 'inductors' })
+    expect(signal.every((shape) => shape.type === 'chip' && shape.style === 'inductor')).toBe(true)
+    expect(bead.every((shape) => shape.type === 'chip' && shape.style === 'ferrite')).toBe(true)
+  })
+
   test('every family preview has positive bounds', () => {
     for (const family of seedFamilies) {
       const shape = familyPreviewKind(family.id)

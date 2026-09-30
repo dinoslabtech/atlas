@@ -4,8 +4,9 @@ import type { PartClass } from '@/seed/types'
 import { chipByEia, chipsFromExamples, chipStyleForClass } from './chip'
 import { fmtMm, type PackageShape } from './types'
 
+/** Square L×W; last two digits are height in 0.1 mm. */
 const POWER: Record<string, { length: number; width: number; height: number }> = {
-  '2520': { length: 2.5, width: 2.0, height: 1.0 },
+  '2520': { length: 2.5, width: 2.5, height: 2.0 },
   '3015': { length: 3.0, width: 3.0, height: 1.5 },
   '4020': { length: 4.0, width: 4.0, height: 2.0 },
   '5020': { length: 5.0, width: 5.0, height: 2.0 },
@@ -24,6 +25,7 @@ export function inductorShapes(part: PartClass): PackageShape[] {
   const style = chipStyleForClass(part.key)
   const shapes: PackageShape[] = []
   if (field.kind === 'chip-package') {
+    // 2012/3216/4532 are metric common-mode bodies, not EIA chips.
     const chipExamples =
       part.key === 'LC' ? field.examples.filter((token) => !(token in COMMON_MODE)) : field.examples
     shapes.push(...chipsFromExamples(chipExamples, style))
