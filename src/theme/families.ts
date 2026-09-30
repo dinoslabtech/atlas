@@ -44,11 +44,11 @@ const THEMES: Record<string, FamilyTheme> = {
   },
   transistors: {
     id: 'transistors',
-    accent: 'hsl(210 8% 62%)',
-    sceneBg: '#101214',
-    sceneGround: '#16181c',
-    grid: '#2c3238',
-    gridFine: '#202428',
+    accent: 'hsl(210 12% 58%)',
+    sceneBg: '#12151a',
+    sceneGround: '#1c2128',
+    grid: '#3c4650',
+    gridFine: '#282e36',
   },
   ics: {
     id: 'ics',
