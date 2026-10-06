@@ -14,6 +14,7 @@ export const capacitorsFamily: Family = {
       field('voltage', 'Voltage', ['10V', '16V', '50V', '100V', '6V3', '25V']),
       field('dielectric', 'Dielectric', ['C0G', 'X7R', 'X5R', 'X7S', 'Y5V', 'X6S', 'NP0']),
       field('temp', 'Temperature', ['85C', '105C', '125C']),
+      field('thickness', 'Thickness', ['0.5mm', '0.8mm']),
     ]),
     partClass('CE', 'Electrolytic (aluminum, polymer, hybrid)', [
       field('capacitance', 'Capacitance', ['100uF', '1000uF']),
@@ -49,6 +50,7 @@ export const capacitorsFamily: Family = {
       field('package', 'Package', ['1210', 'THT10x30', 'THT8x12'], chip),
       field('voltage', 'Voltage', ['2V5', '5V', '5V5', '2V7', '3V']),
       field('esr', 'ESR', ['10mR', '100mR', '1R', '30mR']),
+      field('temp', 'Temperature', ['70C', '85C']),
     ]),
   ],
 }
@@ -61,6 +63,7 @@ export const capacitorsValues: ExampleValues = {
     voltage: '50V',
     dielectric: 'X7R',
     temp: '125C',
+    thickness: '0.5mm',
   },
   CE: {
     capacitance: '100uF',
@@ -90,5 +93,12 @@ export const capacitorsValues: ExampleValues = {
     film: 'PP',
     temp: '85C',
   },
-  CS: { capacitance: '1F', tolerance: '20%', package: 'THT10x30', voltage: '2V5', esr: '100mR' },
+  CS: {
+    capacitance: '1F',
+    tolerance: '20%',
+    package: 'THT10x30',
+    voltage: '2V5',
+    esr: '100mR',
+    temp: '70C',
+  },
 }

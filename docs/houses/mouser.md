@@ -16,7 +16,7 @@ Catalog filters live under [mouser.com/c/](https://www.mouser.com/c/). Column na
 | Case Code - in | `package` | EIA imperial (`0402`, `0603`, `0805`). This is the Atlas chip token. |
 | Case Code - mm | — | Metric twin (`1005`, `1608`, `2012`). Not an Atlas package token. |
 | Temperature Coefficient | `tcr` | Mouser `100 PPM / C`. Atlas `100ppm`. |
-| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Product (Thick Film / Thin Film / Wirewound) | `tech` / class | Thick/Thin → RX `TK`/`TN`. Wirewound is class RW, not tech. |
 | Number of Terminations / Termination Style | `term` | Kelvin 4-terminal → RS `4T`. |
 | Circuit Type | `config` | Isolated / Bussed → RN `ISO` / `BUS`. |
@@ -41,7 +41,8 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Case Code - mm | — | Not Atlas `package`. |
 | ESR | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF. |
+| Maximum Operating Temperature | `temp` | Grade token `105C`, not `+ 125 C` as a range end. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
+| Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Product / Type | `subtype` | Aluminum / Polymer / Hybrid → `AL` / `ALP` / `ALH`. MnO2 / Polymer → `MNO2` / `POLY`. |
 | Case Code / Size | `case` | Tantalum A–E is Atlas `case` (CT). |
 | Dielectric / Film Type | `film` | PP, PET, PPS on CF. |
@@ -57,12 +58,12 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Tolerance | `tolerance` | Name glues `±`. |
 | Case Code - in / Package / Case | `package` | EIA for LL/LR/FB. LP uses power footprints (`2520`, `5020`). |
 | Shielding | `shield` | Shielded / Unshielded → `SH` / `UN`. |
-| Maximum DC Current / Current Rating | `irms` or `irated` | One current on many rows. LP `irms`; LC/FB `irated`. |
+| Maximum DC Current / Current Rating | `irms` or `irated` | One current on many rows. LP `irms`; LL/LC/FB `irated`. |
 | Saturation Current | `isat` | LP. Often absent. |
 | DCR / Maximum DC Resistance | `dcr` | |
 | Self Resonant Frequency / SRF | `srf` | |
 | Q | `q` | LR. Atlas `Q50`. |
-| Impedance | `zimp` / `zcm` | Beads `zimp`; common-mode `zcm`. Token `600R@100MHz`. |
+| Impedance | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | Number of Lines / Channels | `lines` | LC `2L` / `4L`. |
 | Qualification | — | AEC-Q200. Shop rating. |
 
@@ -83,6 +84,7 @@ Mouser often lists a single Maximum DC Current. That does not fill both LP `isat
 | If / Vr / Vf | `current` / `voltage` / `vf` | The rectifier trio. Atlas DD/DS ID is `current`, `package`, `voltage`, `vf`. |
 | Package / Case | `package` | SOD123, SMA, SOD323. |
 | LED Color | `color` | DL. |
+| Lens Transparency | `lens` | DL. Diffused vs water-clear → Atlas `DIFF` / `CLR`. Chip without epoxy is `X`. Lens Color is epoxy tint, not this Field. |
 | Qualification | — | AEC-Q101. Shop rating. |
 
 Standard vs Schottky vs Zener vs LED selects class DD / DS / DZ / DL. Not a field.

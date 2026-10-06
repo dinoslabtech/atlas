@@ -16,7 +16,7 @@ Farnell, Newark, and element14 share one parametric schema (Premier Farnell). Co
 | Resistor Case / Package | `package` | `0402 [1005 Metric]` → Atlas `0402`. Drop the metric bracket. |
 | Resistor Technology | `tech` | Thick Film / Thin Film → RX `TK` / `TN`. Metal Film (Thin Film) is `TN`. Wirewound is class RW. |
 | Temperature Coefficient | `tcr` | Farnell `± 100ppm/°C`. Atlas `100ppm`. |
-| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Operating Temperature Min | — | Not an Atlas resistor field. |
 | Operating Temperature Max | — | Not an Atlas resistor field. |
 | Qualification | — | AEC-Q200. Shop rating. |
@@ -42,7 +42,8 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Dielectric Characteristic | `dielectric` | C0G / NP0, X7R, X5R, X7S, Y5V. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF. |
+| Operating Temperature Max | `temp` | Grade token `105C`, not the range end alone. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
+| Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Operating Temperature Min | — | Not Atlas `temp` by itself. |
 | Capacitor Type / Technology | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Tantalum Case Code | `case` | A–E (CT). |
@@ -60,11 +61,11 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Inductor Case / Package / Power Inductor Case | `package` | EIA for LL/LR/FB. LP uses power footprints. |
 | Self Resonant Frequency | `srf` | |
 | Inductor Construction | `shield` | Shielded / Unshielded → `SH` / `UN`. |
-| RMS Current (Irms) | `irms` / `irated` | LP `irms`; LC/FB `irated`. |
+| RMS Current (Irms) | `irms` / `irated` | LP `irms`; LL/LC/FB `irated`. |
 | Saturation Current (Isat) | `isat` | LP. |
 | DC Resistance Max | `dcr` | |
 | Q Factor | `q` | LR. |
-| Impedance | `zimp` / `zcm` | Beads / common-mode. |
+| Impedance | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | No. of Lines | `lines` | LC. |
 | Qualification | — | AEC-Q200. Shop rating. |
 
@@ -82,6 +83,7 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Power Dissipation Pd | `power` | DZ. |
 | Zener Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | LED Colour | `color` | DL. |
+| Lens Type | `lens` | DL. Diffused / water-clear → Atlas `DIFF` / `CLR`. |
 | Qualification | — | AEC-Q101. Shop rating. |
 
 Diode Configuration (Single / Dual) is not an Atlas field. Dual devices are a different type.

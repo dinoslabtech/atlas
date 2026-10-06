@@ -21,7 +21,7 @@ AEC-Q200 (and AEC-Q101) sit in **Ratings** / **Qualification**. That is a shop r
 | Features: Non-Inductive | `winding` | Atlas `NI` vs `STD` (RW). DigiKey has no winding column. |
 | Circuit Type | `config` | Isolated / Bussed → Atlas `ISO` / `BUS` (RN). |
 | Number of Resistors | `count` | RN element count. |
-| Voltage - Rated | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage - Rated | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Operating Temperature | — | Not an Atlas resistor field. |
 | Features: Automotive AEC-Q200 | — | Shop rating. |
 | Ratings | — | Shop rating. |
@@ -43,7 +43,8 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Temperature Coefficient | `dielectric` | C0G, X7R, X5R, X7S, Y5V on MLCC. This is **not** resistor TCR. |
 | ESR (Equivalent Series Resistance) | `esr` | CE/CT/CS. Atlas `100mR`. |
 | Ripple Current | `ripple` | CE. Atlas `500mA`. |
-| Operating Temperature | `temp` | Grade token `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. On CC, CE, CT, CF. |
+| Operating Temperature | `temp` | Grade token `85C` / `105C` / `125C`, not the full −55°C ~ 125°C span. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
+| Thickness (Max) | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Lifetime @ Temp | `lifetime` | CE hours token (`2000h`, `5000h`). Separate from `temp`. |
 | Polarization / Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid → CE `AL` / `ALP` / `ALH`. MnO2 / Polymer → CT `MNO2` / `POLY`. |
 | Size / Dimension, Height | `case` | Tantalum case letters A–E are Atlas `case` (CT), not `package`. |
@@ -63,11 +64,11 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Package / Case | `package` | EIA for LL/LR/FB. Power footprints (`5020`) are not drawn as EIA chips. |
 | Frequency - Self Resonant | `srf` | DigiKey `500 MHz`. Atlas `500MHz` / `2G4`. |
 | Shielding | `shield` | Shielded / Unshielded → `SH` / `UN`. Semi-Shielded is not an Atlas token. |
-| Current Rating (Amps) | `irms` or `irated` | One column. LP uses it as `irms`; LC/FB as `irated`. |
+| Current Rating (Amps) | `irms` or `irated` | One column. LP uses it as `irms`; LL/LC/FB as `irated`. |
 | Current - Saturation (Isat) | `isat` | LP. Often missing on signal/RF rows. |
 | DC Resistance (DCR) | `dcr` | Atlas `80mR`. |
 | Q @ Freq | `q` | LR only. Atlas `Q50`. LL does not carry Q. |
-| Impedance @ Frequency | `zimp` / `zcm` | Beads → `zimp` (`600R@100MHz`). Common-mode impedance → `zcm`. |
+| Impedance @ Frequency | `zimp` / `zcm` / `z1g` | Beads → `zimp` (`600R@100MHz`). A 1 GHz reading on the same datasheet is `z1g` (`1kR@1GHz`). Common-mode → `zcm`. |
 | Number of Lines | `lines` | `2` / `4` → `2L` / `4L` (LC). |
 | Ratings | — | AEC-Q200. Shop rating. |
 
@@ -86,6 +87,7 @@ DigiKey does not split Irms and Isat on every row. A single Current Rating is no
 | Voltage - Forward (Vf) (Max) @ If | `vf` | Atlas `0V7`, `0V3`, `2V0`. On DD, DS, DL. |
 | Tolerance | `ztol` | Zener Vz tolerance. Atlas `2%`, `5%`. On DZ. |
 | Color | `color` | DL. Atlas seeds `RED`, `BLUE`, `GREEN`, `YELLOW`, `WHITE`. |
+| Lens Transparency | `lens` | DL. Diffused / Clear (Water Clear) → Atlas `DIFF` / `CLR`. Chip without epoxy is `X`. |
 | Package / Case, Supplier Device Package | `package` | SOD123, SMA, SOD323, 0603, PTH-3mm. Outlines are not EIA chips. |
 | Diode Type / Technology | — | Standard vs Schottky selects class DD vs DS. Not a field. |
 | Qualification | — | AEC-Q101. Shop rating. |

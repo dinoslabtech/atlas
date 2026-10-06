@@ -13,7 +13,6 @@ A public site where a person can:
 
 ## Later Atlas work
 
-- Specify ICs and connectors (field order, example tokens)
 - Publish a decided taxonomy as data other tools can read
 
 ## Outside Atlas

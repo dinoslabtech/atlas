@@ -16,15 +16,27 @@ function valuesInOrder(key: string): string[] {
 }
 
 describe('inductors seed', () => {
-  test('existing LL and FB IDs are unchanged', () => {
-    expect(formatId('LL', valuesInOrder('LL'))).toBe('LL-100nH-5%-0402-500MHz-SH')
+  test('LL default ID appends irated; FB default ID appends z1g', () => {
+    expect(formatId('LL', valuesInOrder('LL'))).toBe('LL-100nH-5%-0402-500MHz-SH-500mA')
     expect(formatName('LL', classByKey('LL').fields, valuesInOrder('LL'))).toBe(
-      'LL 100nH±5% 0402 500MHz SH',
+      'LL 100nH±5% 0402 500MHz SH 500mA',
     )
-    expect(formatId('FB', valuesInOrder('FB'))).toBe('FB-600R@100MHz-0402-500mA-200mR')
+    expect(formatId('FB', valuesInOrder('FB'))).toBe('FB-600R@100MHz-0402-500mA-200mR-1kR@1GHz')
     expect(formatName('FB', classByKey('FB').fields, valuesInOrder('FB'))).toBe(
-      'FB 600R@100MHz 0402 500mA 200mR',
+      'FB 600R@100MHz 0402 500mA 200mR 1kR@1GHz',
     )
+  })
+
+  test('empty LL rated current keeps X in the last slot', () => {
+    const values = [...valuesInOrder('LL')]
+    values[values.length - 1] = ''
+    expect(formatId('LL', values)).toBe('LL-100nH-5%-0402-500MHz-SH-X')
+  })
+
+  test('empty FB Z at 1 GHz keeps X in the last slot', () => {
+    const values = [...valuesInOrder('FB')]
+    values[values.length - 1] = ''
+    expect(formatId('FB', values)).toBe('FB-600R@100MHz-0402-500mA-200mR-X')
   })
 
   test('LP LR LC specimens keep their IDs', () => {
@@ -43,6 +55,7 @@ describe('inductors seed', () => {
       'package',
       'srf',
       'shield',
+      'irated',
     ])
     expect(classByKey('LP').fields.map((field) => field.id)).toEqual([
       'inductance',
@@ -74,6 +87,7 @@ describe('inductors seed', () => {
       'package',
       'irated',
       'dcr',
+      'z1g',
     ])
   })
 
@@ -103,6 +117,10 @@ describe('inductors seed', () => {
     expect(ll.fields.find((field) => field.id === 'srf')?.examples).toEqual(
       expect.arrayContaining(['50MHz', '100MHz', '200MHz', '1G0', '1G5']),
     )
+    expect(ll.fields.find((field) => field.id === 'irated')?.label).toBe('Rated current')
+    expect(ll.fields.find((field) => field.id === 'irated')?.examples).toEqual(
+      expect.arrayContaining(['350mA', '500mA']),
+    )
     expect(lp.fields.find((field) => field.id === 'isat')?.examples).toEqual(
       expect.arrayContaining(['500mA', '1A', '3A', '5A', '10A', '15A']),
     )
@@ -117,6 +135,13 @@ describe('inductors seed', () => {
     )
     expect(fb.fields.find((field) => field.id === 'zimp')?.examples).toEqual(
       expect.arrayContaining(['120R@100MHz', '1kR@100MHz', '600R@100MHz']),
+    )
+    expect(fb.fields.find((field) => field.id === 'z1g')?.label).toBe('Z at 1 GHz')
+    expect(fb.fields.find((field) => field.id === 'z1g')?.examples).toEqual(
+      expect.arrayContaining(['1kR@1GHz']),
+    )
+    expect(fb.fields.find((field) => field.id === 'z1g')?.examples.every((token) => !token.includes('-'))).toBe(
+      true,
     )
     expect(fb.fields.find((field) => field.id === 'package')?.examples).toEqual(
       expect.arrayContaining(['01005', '0402', '1210']),

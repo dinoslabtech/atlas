@@ -16,7 +16,7 @@ AEC-Q200 in a description line is a shop rating, not an Atlas ID field.
 | Power(Watts) | `power` | Datasheet rating is **at 70°C**. LCSC `62.5mW` / `100mW`. Atlas `63mW` / `100mW`. On RR, RX, RW, RS, RN. |
 | Temperature Coefficient | `tcr` | LCSC `±100ppm/℃`. Atlas `100ppm`. Also written T.C.R. |
 | Type | `tech` | Thick Film Resistor / Thin Film Resistor → RX `TK` / `TN`. Current Sense Resistor is class RS, not tech. |
-| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage Rating | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Operating Temperature | — | Not an Atlas resistor field. |
 
 **Tolerance letter vs percent.** LCSC (and the MPN) encode tolerance as F/J/G/B. Atlas `tolerance` is `1%`, `5%`. Map the letter, do not put `F` in the ID.
@@ -38,7 +38,8 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Temperature Coefficient | `dielectric` | C0G, X7R, X5R, X7S, Y5V. This is **not** resistor TCR. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS. |
 | Ripple Current | `ripple` | CE. |
-| Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF. |
+| Operating Temperature | `temp` | Grade token `105C`, not the full range. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
+| Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case / Size | `case` | Tantalum A–E (CT). |
 | Dielectric / Material | `film` | PP, PET, PPS on CF. |
@@ -57,10 +58,10 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Self-Resonant Frequency | `srf` | |
 | Shielded / Unshielded | `shield` | `SH` / `UN`. |
 | Saturation Current | `isat` | LP. |
-| Current Rating / Rated Current | `irms` or `irated` | LP `irms`; LC/FB `irated`. |
+| Current Rating / Rated Current | `irms` or `irated` | LP `irms`; LL/LC/FB `irated`. |
 | DC Resistance(DCR) | `dcr` | |
 | Q @ Frequency | `q` | LR. |
-| Impedance @ Frequency | `zimp` / `zcm` | Beads `zimp` (`600Ω@100MHz` → `600R@100MHz`). Common-mode `zcm`. |
+| Impedance @ Frequency | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600Ω@100MHz` → `600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | Number of Circuits / Lines | `lines` | LC `2L` / `4L`. |
 
 One Current Rating column does not fill both LP `isat` and `irms`.
@@ -78,6 +79,7 @@ Diodes sit under Discrete Semiconductors (rectifiers, Schottky, Zener, LED).
 | Power Dissipation | `power` | DZ. |
 | Zener Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | Color / Emitted Color | `color` | DL. |
+| Lens Type | `lens` | DL. Diffused / water-clear → Atlas `DIFF` / `CLR`. |
 | Package | `package` | SOD123, SMA, SOD323, 0603. |
 
 Type (Standard / Schottky / Zener / LED) selects class DD / DS / DZ / DL.

@@ -10,7 +10,7 @@ Field order is the detailed `ID:` template for each class, with DigiKey/Mouser i
 | RX | Thick film / thin film SMD chip (full) | resistance, tolerance, package, power, tcr, tech, voltage |
 | RW | Wirewound SMD | resistance, tolerance, package, power, tcr, winding, voltage |
 | RS | Shunt / current sense | resistance, tolerance, package, power, tcr, term, voltage |
-| RN | Resistor network / array | resistance, tolerance, package, power, count, config, tcr |
+| RN | Resistor network / array | resistance, tolerance, package, power, count, config, tcr, voltage |
 
 ## Specimens
 
@@ -20,11 +20,11 @@ Field order is the detailed `ID:` template for each class, with DigiKey/Mouser i
 | RX | `RX-10k-1%-0402-100mW-100ppm-TK-50V` | `RX 10k 1% 0402 100mW 100ppm TK 50V` |
 | RW | `RW-10R-1%-0805-500mW-50ppm-NI-50V` | `RW 10R 1% 0805 500mW 50ppm NI 50V` |
 | RS | `RS-10mR-1%-2512-2W-75ppm-4T-50V` | `RS 10mR 1% 2512 2W 75ppm 4T 50V` |
-| RN | `RN-10k-1%-0402x4-63mW-4-ISO-100ppm` | `RN 10k 1% 0402x4 63mW 4 ISO 100ppm` |
+| RN | `RN-10k-1%-0402x4-63mW-4-ISO-100ppm-50V` | `RN 10k 1% 0402x4 63mW 4 ISO 100ppm 50V` |
 
 RR package examples include `01005`, `1210`, and `2010`. `01005` is not on the chip size drawing.
 
-Power tokens on RR: `63mW`, `100mW`, `125mW`, `250mW`, `500mW`, `1W`. Voltage tokens: `25V`, `50V`, `75V`, `100V`, `150V`, `200V`. RN TCR tokens: `10ppm`, `25ppm`, `50ppm`, `100ppm`, `200ppm`.
+Power tokens on RR: `63mW`, `100mW`, `125mW`, `250mW`, `500mW`, `1W`. Voltage tokens: `25V`, `50V`, `75V`, `100V`, `150V`, `200V`. RN TCR tokens: `10ppm`, `25ppm`, `50ppm`, `100ppm`, `200ppm`. RN voltage tokens: `25V`, `50V`.
 
 Tech tokens: `TK` thick film, `TN` thin film. Winding: `STD`, `NI`. Termination: `2T`, `4T`. Network config: `ISO`, `BUS`.
 

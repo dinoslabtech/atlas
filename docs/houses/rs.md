@@ -16,7 +16,7 @@ Catalog filters live under [uk.rs-online.com](https://uk.rs-online.com). Column 
 | Package/Case | `package` | EIA `0402`, `0603`, `0805`. |
 | Technology | `tech` | Thick Film / Thin Film → RX `TK` / `TN`. Wirewound is class RW. |
 | Temperature Coefficient | `tcr` | RS `±100 ppm/°C`. Atlas `100ppm`. |
-| Voltage | `voltage` | Atlas `50V`. On RR, RX, RW, RS. |
+| Voltage | `voltage` | Atlas `50V`. On RR, RX, RW, RS, RN. |
 | Minimum / Maximum Operating Temperature | — | Not an Atlas resistor field. |
 | Automotive Standard | — | AEC-Q200. Shop rating. |
 | Resistor Type | — | General Purpose, Current Sense. Current Sense selects class RS. |
@@ -38,7 +38,8 @@ RR is five fields (`resistance`, `tolerance`, `package`, `power`, `voltage`). TC
 | Case Size / Package/Case | `package` | EIA `0402`, `0603`, `0805`, `1206`. |
 | Equivalent Series Resistance | `esr` | CE/CT/CS, not typical on MLCC. |
 | Ripple Current | `ripple` | CE. |
-| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF. |
+| Maximum Operating Temperature | `temp` | Grade token `105C`. On CC, CE, CT, CF, CS. CS examples include `70C`, `85C`. |
+| Thickness | `thickness` | MLCC body height. Atlas `0.5mm`, `0.8mm`. On CC only. |
 | Capacitor Type | `subtype` | Aluminum / Polymer / Hybrid; MnO2 / Polymer. |
 | Case Code | `case` | Tantalum A–E (CT). |
 | Dielectric Material | `film` | PP, PET, PPS on CF. |
@@ -59,11 +60,11 @@ Electrolytic, tantalum, film, and supercapacitor sit in sibling capacitor catego
 | Package/Case | `package` | EIA for LL/LR/FB. LP uses power footprints. |
 | Maximum Self Resonant Frequency | `srf` | |
 | Shielded / Inductor Construction | `shield` | Shielded → `SH`. Unshielded / No → `UN`. |
-| Maximum DC Current | `irms` or `irated` | One current on many rows. |
+| Maximum DC Current | `irms` or `irated` | One current on many rows. LP `irms`; LL/LC/FB `irated`. |
 | Saturation Current | `isat` | LP. Often absent. |
 | Maximum DC Resistance | `dcr` | |
 | Q Factor | `q` | LR. |
-| Impedance | `zimp` / `zcm` | Beads / common-mode. |
+| Impedance | `zimp` / `zcm` / `z1g` | Beads `zimp` (`600R@100MHz`). A 1 GHz datasheet reading is `z1g` (`1kR@1GHz`). Common-mode `zcm`. |
 | Number of Lines | `lines` | LC. |
 | Automotive Standard | — | AEC-Q200. Shop rating. |
 
@@ -83,6 +84,7 @@ A single Maximum DC Current does not fill both LP `isat` and `irms`.
 | Power Dissipation | `power` | DZ. |
 | Voltage Tolerance | `ztol` | Atlas `2%`, `5%`. On DZ. |
 | LED Colour | `color` | DL. |
+| Lens Type | `lens` | DL. Diffused / water-clear → Atlas `DIFF` / `CLR`. |
 | Automotive Standard | — | AEC-Q101. Shop rating. |
 
 Diode Configuration (Single / Dual) is not an Atlas field.

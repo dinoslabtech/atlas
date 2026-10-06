@@ -23,7 +23,7 @@ describe('resistors seed', () => {
     expect(formatId('RX', valuesInOrder('RX'))).toBe('RX-10k-1%-0402-100mW-100ppm-TK-50V')
     expect(formatId('RW', valuesInOrder('RW'))).toBe('RW-10R-1%-0805-500mW-50ppm-NI-50V')
     expect(formatId('RS', valuesInOrder('RS'))).toBe('RS-10mR-1%-2512-2W-75ppm-4T-50V')
-    expect(formatId('RN', valuesInOrder('RN'))).toBe('RN-10k-1%-0402x4-63mW-4-ISO-100ppm')
+    expect(formatId('RN', valuesInOrder('RN'))).toBe('RN-10k-1%-0402x4-63mW-4-ISO-100ppm-50V')
   })
 
   test('complete default names match the IDs', () => {
@@ -34,8 +34,14 @@ describe('resistors seed', () => {
       'RX 10k 1% 0402 100mW 100ppm TK 50V',
     )
     expect(formatName('RN', classByKey('RN').fields, valuesInOrder('RN'))).toBe(
-      'RN 10k 1% 0402x4 63mW 4 ISO 100ppm',
+      'RN 10k 1% 0402x4 63mW 4 ISO 100ppm 50V',
     )
+  })
+
+  test('unset RN voltage copies as X', () => {
+    const values = valuesInOrder('RN')
+    values[values.length - 1] = ''
+    expect(formatId('RN', values)).toBe('RN-10k-1%-0402x4-63mW-4-ISO-100ppm-X')
   })
 
   test('appended fields stay after the existing sequence', () => {
@@ -81,6 +87,7 @@ describe('resistors seed', () => {
       'count',
       'config',
       'tcr',
+      'voltage',
     ])
   })
 

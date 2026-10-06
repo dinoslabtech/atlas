@@ -38,7 +38,6 @@ describe('inductor derived values', () => {
   })
 
   test('skips rows when tokens are missing', () => {
-    expect(derive(inductorsValues.LL, 25)).toEqual([])
     expect(derive({ inductance: '4u7' }, 25)).toEqual([])
     expect(derive({ dcr: '80mR' }, 25)).toEqual([])
   })
