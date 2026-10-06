@@ -13,7 +13,7 @@ bun install
 bun run dev
 ```
 
-Open the URL Vite prints (usually `http://localhost:5173`). The first screen shows Key, ID, and Name for `RR 10k 1% 0402`.
+Open the URL Vite prints (usually `http://localhost:5173`). The first screen is a list of component types. Open one to see its Key, ID, Name, and a 3D package view.
 
 ```bash
 bun test

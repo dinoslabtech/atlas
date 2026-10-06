@@ -4,7 +4,7 @@ A component type has three identities.
 
 **Key** is the class code: `RR`, `RX`, `CC`, `LL`, `DD`, `QN`, …
 
-**ID** is the Key, then each field in order, separated by `-`. Every field keeps its position. A missing or empty field is `X`.
+**ID** is the Key, then each field in order, separated by `-`. Every field keeps its position. A missing or empty field is `X`. Atlas copies this string (Copy ID).
 
 **Name** is the same sequence with spaces instead of dashes. For inductor classes, a tolerance field is prefixed with `±` and glued to the previous token: `LL 100nH±5% 0402 500MHz SH`.
 
@@ -21,5 +21,5 @@ kicad-libs called the Name string **Value**. Atlas uses Name.
 | Inductors | LL, LP, LR, LC, FB | specified |
 | Diodes | DD, DS, DZ, DL | specified |
 | Transistors | QN, QP, MN, MP | specified |
-| ICs | IC | still being specified |
-| Connectors | JJ | still being specified |
+| ICs | IC | specified |
+| Connectors | JJ | specified |

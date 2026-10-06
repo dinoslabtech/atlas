@@ -1,19 +1,18 @@
 # Roadmap
 
-## v1 — this workshop
+## v1 — visualizer on atlas.dinoslab.com
 
-A local site where a person can:
+A public site where a person can:
 
 - Move through families into classes
-- See chip packages drawn to one shared scale
-- Choose values and watch Key, ID, and Name update
-- Edit the taxonomy in the browser and keep the experiment across reload
+- See packages drawn to one shared millimetre scale
+- Choose values, then copy the ID (including `X` for empty slots)
+- Paste that ID into another Dino's Lab tool later
 
-Specified in v1: resistors, capacitors, inductors, diodes, transistors. Listed, still being specified: ICs, connectors.
+`?edit=1` is the workshop: derived numbers and taxonomy edits in localStorage.
 
 ## Later Atlas work
 
-- Specify ICs and connectors (field order, example tokens)
 - Publish a decided taxonomy as data other tools can read
 
 ## Outside Atlas

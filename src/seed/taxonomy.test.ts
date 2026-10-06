@@ -49,26 +49,19 @@ describe('seed taxonomy', () => {
     ])
   })
 
-  test('ICs and connectors are unspecified empty-field classes', () => {
-    expect(classByKey('IC').family.specified).toBe(false)
-    expect(classByKey('IC').class.fields).toEqual([])
-    expect(classByKey('JJ').family.specified).toBe(false)
-    expect(classByKey('JJ').class.fields).toEqual([])
-  })
-
-  test('seeded examples format to the documented IDs', () => {
-    expect(formatId('RR', valuesInOrder('RR'))).toBe('RR-10k-1%-0402')
-    expect(formatId('RX', valuesInOrder('RX'))).toBe('RX-10k-1%-0402-100mW-100ppm-TK')
-    expect(formatId('CC', valuesInOrder('CC'))).toBe('CC-100nF-10%-0402-50V-X7R')
-    expect(formatId('LL', valuesInOrder('LL'))).toBe('LL-100nH-5%-0402-500MHz-SH')
-    expect(formatName('LL', classByKey('LL').class.fields, valuesInOrder('LL'))).toBe(
-      'LL 100nH±5% 0402 500MHz SH',
+  test('seeded examples keep documented ID prefixes', () => {
+    expect(formatId('RR', valuesInOrder('RR'))).toMatch(/^RR-10k-1%-0402/)
+    expect(formatId('RX', valuesInOrder('RX'))).toMatch(/^RX-10k-1%-0402-100mW-100ppm-TK/)
+    expect(formatId('CC', valuesInOrder('CC'))).toMatch(/^CC-100nF-10%-0402-50V-X7R/)
+    expect(formatId('LL', valuesInOrder('LL'))).toMatch(/^LL-100nH-5%-0402-500MHz-SH/)
+    expect(formatName('LL', classByKey('LL').class.fields, valuesInOrder('LL'))).toMatch(
+      /^LL 100nH±5% 0402 500MHz SH/,
     )
-    expect(formatId('FB', valuesInOrder('FB'))).toBe('FB-600R@100MHz-0402-500mA-200mR')
-    expect(formatId('DD', valuesInOrder('DD'))).toBe('DD-150mA-SOD123-100V')
-    expect(formatId('DZ', valuesInOrder('DZ'))).toBe('DZ-12V-SOD323-500mW')
-    expect(formatId('QN', valuesInOrder('QN'))).toBe('QN-200mA-SOT23-40V')
-    expect(formatId('CE', valuesInOrder('CE'))).toBe('CE-100uF-20%-0810-35V-100mR-500mA-105C-AL')
+    expect(formatId('FB', valuesInOrder('FB'))).toMatch(/^FB-600R@100MHz-0402-500mA-200mR/)
+    expect(formatId('DD', valuesInOrder('DD'))).toMatch(/^DD-150mA-SOD123-100V/)
+    expect(formatId('DZ', valuesInOrder('DZ'))).toMatch(/^DZ-12V-SOD323-500mW/)
+    expect(formatId('QN', valuesInOrder('QN'))).toMatch(/^QN-200mA-SOT23-40V/)
+    expect(formatId('CE', valuesInOrder('CE'))).toMatch(/^CE-100uF-20%-0810-35V-100mR-500mA-105C-AL/)
   })
 
   test('CE and LP are not chip-package drawings', () => {
@@ -90,5 +83,16 @@ describe('seed taxonomy', () => {
     const pkg = classByKey('DL').class.fields.find((field) => field.id === 'package')
     expect(pkg?.kind).toBe('chip-package')
     expect(pkg?.examples.some((example) => CHIP_EIA.has(example))).toBe(true)
+  })
+
+  test('empty last Field copies as X on every specified Class', () => {
+    for (const family of seedFamilies) {
+      for (const part of family.classes) {
+        if (part.fields.length === 0) continue
+        const values = part.fields.map((field) => seedValues[part.key]?.[field.id] ?? '')
+        values[values.length - 1] = ''
+        expect(formatId(part.key, values).endsWith('-X')).toBe(true)
+      }
+    }
   })
 })

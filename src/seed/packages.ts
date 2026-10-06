@@ -1,20 +1,30 @@
 export type ChipSize = {
   eia: string
+  /** Body length between terminations, millimetres (the first EIA digit pair). */
+  lengthMm: number
+  /** Body width, millimetres (the second EIA digit pair). */
   widthMm: number
-  heightMm: number
+  /** Typical molded thickness, millimetres. */
+  thicknessMm: number
 }
 
 export const CHIP_SIZES: ChipSize[] = [
-  { eia: '0201', widthMm: 0.6, heightMm: 0.3 },
-  { eia: '0402', widthMm: 1.0, heightMm: 0.5 },
-  { eia: '0603', widthMm: 1.6, heightMm: 0.8 },
-  { eia: '0805', widthMm: 2.0, heightMm: 1.25 },
-  { eia: '1206', widthMm: 3.2, heightMm: 1.6 },
-  { eia: '1210', widthMm: 3.2, heightMm: 2.5 },
-  { eia: '1808', widthMm: 4.5, heightMm: 2.0 },
-  { eia: '1812', widthMm: 4.5, heightMm: 3.2 },
-  { eia: '2010', widthMm: 5.0, heightMm: 2.5 },
-  { eia: '2512', widthMm: 6.4, heightMm: 3.2 },
+  { eia: '01005', lengthMm: 0.4, widthMm: 0.2, thicknessMm: 0.13 },
+  { eia: '0201', lengthMm: 0.6, widthMm: 0.3, thicknessMm: 0.23 },
+  { eia: '0402', lengthMm: 1.0, widthMm: 0.5, thicknessMm: 0.35 },
+  { eia: '0603', lengthMm: 1.6, widthMm: 0.8, thicknessMm: 0.45 },
+  { eia: '0805', lengthMm: 2.0, widthMm: 1.25, thicknessMm: 0.5 },
+  { eia: '1206', lengthMm: 3.2, widthMm: 1.6, thicknessMm: 0.55 },
+  { eia: '1210', lengthMm: 3.2, widthMm: 2.5, thicknessMm: 0.7 },
+  { eia: '1808', lengthMm: 4.5, widthMm: 2.0, thicknessMm: 0.7 },
+  { eia: '1812', lengthMm: 4.5, widthMm: 3.2, thicknessMm: 1.0 },
+  { eia: '2010', lengthMm: 5.0, widthMm: 2.5, thicknessMm: 0.6 },
+  { eia: '2512', lengthMm: 6.4, widthMm: 3.2, thicknessMm: 0.65 },
+  { eia: '2012', lengthMm: 2.0, widthMm: 1.2, thicknessMm: 0.9 },
+  { eia: '3216', lengthMm: 3.2, widthMm: 1.6, thicknessMm: 1.1 },
+  { eia: '4532', lengthMm: 4.5, widthMm: 3.2, thicknessMm: 1.8 },
+  { eia: '3920', lengthMm: 3.9, widthMm: 2.0, thicknessMm: 0.5 },
+  { eia: '5930', lengthMm: 5.9, widthMm: 3.0, thicknessMm: 0.6 },
 ]
 
 export const CHIP_EIA = new Set(CHIP_SIZES.map((chip) => chip.eia))

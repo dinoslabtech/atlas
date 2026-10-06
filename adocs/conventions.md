@@ -10,13 +10,15 @@ Bun is the package manager and the test runner (`bun test`, `bun run dev`). The 
 
 Changing a class means updating the matching file in `docs/` and the seed in the same change.
 
-## Chip drawings
+## Homepage and 3D
 
-The size drawing is the ten EIA chip bodies in `src/seed/packages.ts`. Show it when the selected class has a field with `kind: 'chip-package'`. Electrolytic cans, tantalum cases, power-inductor footprints, resistor arrays, SOD/SMA/SOT/TO outlines are package tokens in the picker, not rectangles on that scale.
+`#/` is the type picker. `#/<family>/<class>` is the family page. `?edit=1` shows derived values and the taxonomy editor; omit it on the public site. Hash writes must keep the query string. Three.js (R3F) draws packages in millimetres, y-up, sitting on y = 0. Chip classes use `src/seed/packages.ts`. Cans, tantalum cases, power inductors, SOD/SMA/SOT/TO, LEDs, SOIC, and headers have their own meshes. They are not drawn as EIA chip rectangles.
 
-## Unspecified families
+## New Classes
 
-ICs (`IC`) and connectors (`JJ`) ship with zero fields. A new class starts with zero fields. The taxonomy editor is how fields appear.
+A new **Class** starts with zero Fields. The taxonomy editor is how Fields appear.
+
+**IC** Fields are `device`, `package`, `pins`. **JJ** Fields are `type`, `pins`, `pitch`, `orientation`, `mount`.
 
 ## Identity
 
